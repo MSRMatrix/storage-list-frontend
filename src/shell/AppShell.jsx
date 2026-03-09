@@ -1,7 +1,17 @@
+import { Outlet } from "react-router-dom";
+import Navbar from "../components/layout/Navbar";
+import Footer from "../components/layout/Footer";
+
 const AppShell = () => {
+
     return(
         <>
-        App Shell
+        <Navbar />
+        AppShell
+        <main>
+        <Outlet />    
+        </main>
+        <Footer />
         </>
     )
 }
