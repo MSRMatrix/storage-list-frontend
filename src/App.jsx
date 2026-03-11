@@ -1,4 +1,6 @@
+import { useState } from "react";
 import "./App.css";
+import { PartsContext } from "./context/PartsContext";
 import Alerts from "./pages/Alerts";
 import Login from "./pages/Login";
 import Logout from "./pages/Logout";
@@ -43,7 +45,15 @@ function App() {
     },
   ]);
 
-  return <RouterProvider router={router} />;
+  const [partsContext, setPartsContext] = useState([])
+
+  return (
+    <>
+      <PartsContext.Provider value={{ partsContext, setPartsContext }}>
+        <RouterProvider router={router} />
+      </PartsContext.Provider>
+    </>
+  );
 }
 
 export default App;

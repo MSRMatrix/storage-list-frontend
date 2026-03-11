@@ -1,3 +1,7 @@
 function partsServices(){
-    // Locale storage einbauen und später mit Datenbank dass man toggeln kann falls man eingeloggt ist
+    // if(login.open){ Dann wird nicht der Locale storage genutzt sondern die Datenbank}
+
+const data = localStorage.getItem("parts")
+  return data ? JSON.parse(data) : []
+
 }
