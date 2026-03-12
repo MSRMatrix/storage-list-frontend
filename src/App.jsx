@@ -57,3 +57,15 @@ function App() {
 }
 
 export default App;
+
+
+// [
+//   {
+//     id: "1",
+//     partNumber: "A1001",
+//     name: "Arduino Uno",
+//     quantity: 5,
+//     price: 10,
+//     location: "Box A3"
+//   }
+// ]
