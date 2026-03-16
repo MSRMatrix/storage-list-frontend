@@ -5,7 +5,7 @@ const PartForm = () => {
 const { partsContext, setPartsContext } = useContext(PartsContext)
 
   const partFormItem = [
-    { element: "input", name: "partNumber", placeholder: "Part Number", type: "text" },
+    { element: "input", name: "partNumber", placeholder: "Part Number", type: "number" },
     { element: "input", name: "name", placeholder: "Name", type: "text" },
     { element: "input", name: "quantity", placeholder: "Quantity", type: "number" },
     { element: "input", name: "price", placeholder: "Price", type: "number" },
@@ -23,15 +23,6 @@ function createItem(e) {
     quantity: Number(e.target.quantity.value),
     price: Number(e.target.price.value)
   }
-
-//   const exists = partsContext.some(
-//   (part) => part.partNumber === newItem.partNumber
-// )
-
-// if (exists) {
-//   alert("Part already exists!")
-//   return
-// }
 
   setPartsContext((prev) => {
     const updated = [...prev, newItem]

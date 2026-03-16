@@ -1,7 +1,18 @@
-function partsServices(){
-    // if(login.open){ Dann wird nicht der Locale storage genutzt sondern die Datenbank}
+export function partsServices(partsContext, setPartsContext, userContext, setUserContext){
+    // if(userContext.loggedIn){
+    // return
+    // }
 
-const data = localStorage.getItem("parts")
-  return data ? JSON.parse(data) : []
+const data = localStorage.getItem("storage")
 
+  if (!data) {
+    const empty = []
+    localStorage.setItem("storage", JSON.stringify(empty))
+    setPartsContext(empty)
+    return
+  }
+
+  const parsedData = JSON.parse(data)
+
+  setPartsContext(parsedData)
 }

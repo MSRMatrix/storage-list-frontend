@@ -10,6 +10,7 @@ import Settings from "./pages/Settings";
 import AppShell from "./shell/AppShell";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { UserContext } from "./context/UserContext";
 
 function App() {
   const router = createBrowserRouter([
@@ -45,19 +46,29 @@ function App() {
     },
   ]);
 
-  const [partsContext, setPartsContext] = useState([])
+  const [partsContext, setPartsContext] = useState([]);
+  const [userContext, setUserContext] = useState({
+    id: "",
+    name: "",
+    email: "",
+    company: false,
+    role: "user",
+    loggedIn: false,
+    currency: "Euro"
+  });
 
   return (
     <>
-      <PartsContext.Provider value={{ partsContext, setPartsContext }}>
-        <RouterProvider router={router} />
-      </PartsContext.Provider>
+      <UserContext.Provider value={{ userContext, setUserContext }}>
+        <PartsContext.Provider value={{ partsContext, setPartsContext }}>
+          <RouterProvider router={router} />
+        </PartsContext.Provider>
+      </UserContext.Provider>
     </>
   );
 }
 
 export default App;
-
 
 // [
 //   {
