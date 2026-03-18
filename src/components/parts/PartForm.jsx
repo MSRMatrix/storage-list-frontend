@@ -1,11 +1,12 @@
 import { useContext } from "react";
 import { PartsContext } from "../../context/PartsContext";
+import Input from "../ui/Input";
 
 const PartForm = () => {
 const { partsContext, setPartsContext } = useContext(PartsContext)
 
   const partFormItem = [
-    { element: "input", name: "partNumber", placeholder: "Part Number", type: "number" },
+    { element: "input", name: "partNumber", placeholder: "Part Number", type: "text" },
     { element: "input", name: "name", placeholder: "Name", type: "text" },
     { element: "input", name: "quantity", placeholder: "Quantity", type: "number" },
     { element: "input", name: "price", placeholder: "Price", type: "number" },
@@ -24,6 +25,15 @@ function createItem(e) {
     price: Number(e.target.price.value)
   }
 
+  const checkPartNumber = partsContext.find((item) => item.partNumber === newItem.partNumber);
+  if(checkPartNumber){
+    console.log(`Part Number already given!`);
+    return;
+  }
+console.log(newItem.partNumber);
+console.log(partsContext.map((item) => item.partNumber));
+
+  
   setPartsContext((prev) => {
     const updated = [...prev, newItem]
 
@@ -40,12 +50,9 @@ function createItem(e) {
         if (item.element === "button") {
           return <button key={index} type={item.type}>{item.text}</button>
         }
-        return <input
-          key={index}
-          name={item.name}
-          placeholder={item.placeholder}
-          type={item.type}
-          required
+        return <Input
+          index={index}
+          item={item}
         />
       })}
     </form>);

@@ -5,8 +5,8 @@ const PartSearch = () => {
     return(
         <>
         <h2>Teile suchen</h2>
-        <Input />
-        <Button />
+        {/* <Input />
+        <Button /> */}
         </>
         
     )
