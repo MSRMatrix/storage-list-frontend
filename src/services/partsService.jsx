@@ -3,11 +3,11 @@ export function partsServices(partsContext, setPartsContext, userContext, setUse
     // return
     // }
 
-const data = localStorage.getItem("storage")
+const data = localStorage.getItem("parts")
 
   if (!data) {
     const empty = []
-    localStorage.setItem("storage", JSON.stringify(empty))
+    localStorage.setItem("parts", JSON.stringify(empty))
     setPartsContext(empty)
     return
   }

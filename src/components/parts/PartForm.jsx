@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { PartsContext } from "../../context/PartsContext";
 import Input from "../ui/Input";
+import Button from "../ui/Button";
 
 const PartForm = () => {
 const { partsContext, setPartsContext } = useContext(PartsContext)
@@ -17,27 +18,26 @@ const { partsContext, setPartsContext } = useContext(PartsContext)
 function createItem(e) {
   e.preventDefault()
 
-  const newItem = {
-    id: crypto.randomUUID(),
-    partNumber: e.target.partNumber.value,
-    name: e.target.name.value,
-    quantity: Number(e.target.quantity.value),
-    price: Number(e.target.price.value)
-  }
+  const formData = new FormData(e.target);
+
+const newItem = {
+  id: crypto.randomUUID(),
+  partNumber: formData.get("partNumber"),
+  name: formData.get("name"),
+  quantity: Number(formData.get("quantity")),
+  price: Number(formData.get("price"))
+}
 
   const checkPartNumber = partsContext.find((item) => item.partNumber === newItem.partNumber);
   if(checkPartNumber){
     console.log(`Part Number already given!`);
     return;
   }
-console.log(newItem.partNumber);
-console.log(partsContext.map((item) => item.partNumber));
 
-  
   setPartsContext((prev) => {
     const updated = [...prev, newItem]
 
-    localStorage.setItem("storage", JSON.stringify(updated))
+    localStorage.setItem("parts", JSON.stringify(updated))
 
     return updated
   })
@@ -46,13 +46,18 @@ console.log(partsContext.map((item) => item.partNumber));
 }
 
   return(  <form onSubmit={(e) => createItem(e)}>
-      {partFormItem.map((item, index) => {
+      {partFormItem.map((item) => {
         if (item.element === "button") {
-          return <button key={index} type={item.type}>{item.text}</button>
+          return <Button 
+          key={item.type}
+          type={item.type}
+          text={item.text} 
+          />
         }
         return <Input
-          index={index}
+          key={item.name}
           item={item}
+          required={true}
         />
       })}
     </form>);

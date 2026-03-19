@@ -1,10 +1,10 @@
-const Input = ({index, item}) => {
+const Input = ({item, required}) => {
   return <input
-  key={index}
           name={item.name}
           placeholder={item.placeholder}
           type={item.type}
-          required/>;
+          min={item.name === "price" ? 0 : ""}
+          required={required}/>;
 };
 
 export default Input;
