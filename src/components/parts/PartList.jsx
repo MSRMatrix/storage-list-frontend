@@ -6,6 +6,17 @@ const PartList = () => {
   const { partsContext, setPartsContext } = useContext(PartsContext);
   const {userContext, setUserContext} = useContext(UserContext)
 
+  function test(){
+    
+    const nameCompare = a.name.localeCompare(b.name);
+  if (nameCompare !== 0) return nameCompare;
+
+  return a.price - b.price;
+  }
+
+  // console.log(test());
+  
+  
   return (
     <>
       {partsContext.map((item) => (
