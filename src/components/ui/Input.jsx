@@ -4,6 +4,7 @@ const Input = ({item, required}) => {
           placeholder={item.placeholder}
           type={item.type}
           min={item.name === "price" ? 0 : ""}
+          step="0.01"
           required={required}/>;
 };
 

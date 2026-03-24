@@ -45,7 +45,11 @@ const newItem = {
   e.target.reset()
 }
 
-  return(  <form onSubmit={(e) => createItem(e)}>
+  return( 
+    <>
+    <h2>Teile hinzufügen</h2>
+    
+    <form onSubmit={(e) => createItem(e)}>
       {partFormItem.map((item) => {
         if (item.element === "button") {
           return <Button 
@@ -60,7 +64,9 @@ const newItem = {
           required={true}
         />
       })}
-    </form>);
+    </form>
+    </>
+    );
 };
 
 export default PartForm;

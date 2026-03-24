@@ -5,7 +5,6 @@ import PartList from "../components/parts/PartList";
 
 function Parts() {
   const [activeTab, setActiveTab] = useState("list");
-
   return (
     <div>
       <h1>Inventory</h1>

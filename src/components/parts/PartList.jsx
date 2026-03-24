@@ -38,6 +38,8 @@ const PartList = () => {
     ? sortParts(partsContext, sortKey, direction)
     : partsContext;
 
+    
+
   const thItem = [
     {
       name: "Part Number",
@@ -80,7 +82,7 @@ const PartList = () => {
               <td>{part.partNumber}</td>
               <td>{part.name}</td>
               <td>{part.quantity}</td>
-              <td>{part.price}</td>
+              <td>{part.price.toString().split(".").join(",")}{userContext.currency === "Euro" ? "€" : userContext.currency === "Dollar" ? "$" : ""}</td>
             </tr>
           ))}
         </tbody>
