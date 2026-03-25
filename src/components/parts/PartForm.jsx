@@ -11,6 +11,7 @@ const { partsContext, setPartsContext } = useContext(PartsContext)
     { element: "input", name: "name", placeholder: "Name", type: "text" },
     { element: "input", name: "quantity", placeholder: "Quantity", type: "number" },
     { element: "input", name: "price", placeholder: "Price", type: "number" },
+    { element: "input", name: "lowLimit", placeholder: "Low-Limit", type: "number" },
     { element: "button", type: "submit", text: "Add Part" }
   ]
 
@@ -25,7 +26,8 @@ const newItem = {
   partNumber: formData.get("partNumber"),
   name: formData.get("name"),
   quantity: Number(formData.get("quantity")),
-  price: Number(formData.get("price"))
+  price: Number(formData.get("price")),
+  lowLimit: Number(formData.get("lowLimit"))
 }
 
   const checkPartNumber = partsContext.find((item) => item.partNumber === newItem.partNumber);

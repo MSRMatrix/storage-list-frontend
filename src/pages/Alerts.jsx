@@ -1,7 +1,11 @@
+import AlertItem from "../components/alerts/AlertItem";
+import AlertList from "../components/alerts/AlertList";
+
 const Alerts = () => {
     return(
         <>
-    Alerts 
+        <AlertList />
+        <AlertItem />
         </>
         
     )

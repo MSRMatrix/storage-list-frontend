@@ -54,7 +54,7 @@ function App() {
     company: false,
     role: "user",
     loggedIn: false,
-    currency: "Euro"
+    currency: "Euro",
   });
 
   return (
