@@ -7,17 +7,21 @@ const AlertList = () => {
     
   const { userContext, setUserContext } = useContext(UserContext);
 
+  function lowParts(){
+    return partsContext.filter((item) => item.quantity < item.lowLimit)
+  }
+
     return(
         <>
-        {partsContext.map((item) => item.quantity < item.lowLimit ? (
-            <div>
-             <p>{item.itemNumber}</p>
+        {lowParts().map((item) => (
+            <div key={item.partNumber}>
+             <p>{item.partNumber}</p>
               <p>{item.name}</p>
               <p>{item.quantity}</p>
               <p>{item.price.toString().split(".").join(",")}{userContext.currency === "Euro" ? "€" : userContext.currency === "Dollar" ? "$" : ""}</p>   
             </div>
              
-        ) : (""))}
+        ))}
         </>
         
     )

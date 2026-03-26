@@ -4,71 +4,90 @@ import Input from "../ui/Input";
 import Button from "../ui/Button";
 
 const PartForm = () => {
-const { partsContext, setPartsContext } = useContext(PartsContext)
+  const { partsContext, setPartsContext } = useContext(PartsContext);
 
   const partFormItem = [
-    { element: "input", name: "partNumber", placeholder: "Part Number", type: "text" },
+    {
+      element: "input",
+      name: "partNumber",
+      placeholder: "Part Number",
+      type: "text",
+    },
     { element: "input", name: "name", placeholder: "Name", type: "text" },
-    { element: "input", name: "quantity", placeholder: "Quantity", type: "number" },
+    {
+      element: "input",
+      name: "quantity",
+      placeholder: "Quantity",
+      type: "number",
+    },
     { element: "input", name: "price", placeholder: "Price", type: "number" },
-    { element: "input", name: "lowLimit", placeholder: "Low-Limit", type: "number" },
-    { element: "button", type: "submit", text: "Add Part" }
-  ]
+    {
+      element: "input",
+      name: "lowLimit",
+      placeholder: "Low-Limit",
+      type: "number",
+    },
+    { element: "button", type: "submit", text: "Add Part" },
+  ];
 
-
-function createItem(e) {
-  e.preventDefault()
+ function createItem(e) {
+  e.preventDefault();
 
   const formData = new FormData(e.target);
 
-const newItem = {
-  id: crypto.randomUUID(),
-  partNumber: formData.get("partNumber"),
-  name: formData.get("name"),
-  quantity: Number(formData.get("quantity")),
-  price: Number(formData.get("price")),
-  lowLimit: Number(formData.get("lowLimit"))
-}
+  const newItem = {
+    id: crypto.randomUUID(),
+    partNumber: formData.get("partNumber"),
+    name: formData.get("name"),
+    quantity: Number(formData.get("quantity")),
+    price: Number(formData.get("price")),
+    lowLimit: Number(formData.get("lowLimit")),
+  };
 
-  const checkPartNumber = partsContext.find((item) => item.partNumber === newItem.partNumber);
-  if(checkPartNumber){
-    console.log(`Part Number already given!`);
-    return;
+  function updateParts(newArray) {
+    setPartsContext(newArray);
+    localStorage.setItem("parts", JSON.stringify(newArray));
   }
 
-  setPartsContext((prev) => {
-    const updated = [...prev, newItem]
+  const exists = partsContext.some(
+    (item) => item.partNumber === newItem.partNumber
+  );
 
-    localStorage.setItem("parts", JSON.stringify(updated))
+  let updated;
 
-    return updated
-  })
+  if (exists) {
+    updated = partsContext.map((item) => {
+      if (item.partNumber === newItem.partNumber) {
+        return {
+          ...item,
+          quantity: item.quantity + newItem.quantity,
+        };
+      }
+      return item;
+    });
+  } else {
+    updated = [...partsContext, newItem];
+  }
 
-  e.target.reset()
+  updateParts(updated);
+
+  e.target.reset();
 }
 
-  return( 
+  return (
     <>
-    <h2>Teile hinzufügen</h2>
-    
-    <form onSubmit={(e) => createItem(e)}>
-      {partFormItem.map((item) => {
-        if (item.element === "button") {
-          return <Button 
-          key={item.type}
-          type={item.type}
-          text={item.text} 
-          />
-        }
-        return <Input
-          key={item.name}
-          item={item}
-          required={true}
-        />
-      })}
-    </form>
+      <h2>Teile hinzufügen</h2>
+
+      <form onSubmit={(e) => createItem(e)}>
+        {partFormItem.map((item) => {
+          if (item.element === "button") {
+            return <Button key={item.type} type={item.type} text={item.text} />;
+          }
+          return <Input key={item.name} item={item} required={true} />;
+        })}
+      </form>
     </>
-    );
+  );
 };
 
 export default PartForm;
