@@ -2,43 +2,36 @@ import { useContext, useState } from "react";
 import { PartsContext } from "../../context/PartsContext";
 import { UserContext } from "../../context/UserContext";
 
-const PartList = () => {
+const PartList = ({filters}) => {
   const { partsContext, setPartsContext } = useContext(PartsContext);
   const { userContext, setUserContext } = useContext(UserContext);
   const [sortKey, setSortKey] = useState(null);
   const [direction, setDirection] = useState("asc");
+  const visibleParts = getVisibleParts();
 
-  function sortParts(parts, key, direction) {
-    return [...parts].sort((a, b) => {
-      const valueA = a[key];
-      const valueB = b[key];
+function sortParts(parts, key, direction) {
+  return [...parts].sort((a, b) => {
+    const valueA = a[key];
+    const valueB = b[key];
 
-      // Zahlen
-      if (typeof valueA === "number" && typeof valueB === "number") {
-        return direction === "asc" ? valueA - valueB : valueB - valueA;
-      }
+    if (typeof valueA === "number" && typeof valueB === "number") {
+      return direction === "asc" ? valueA - valueB : valueB - valueA;
+    }
 
-      // Strings
-      return direction === "asc"
-        ? String(valueA).localeCompare(String(valueB))
-        : String(valueB).localeCompare(String(valueA));
-    });
-  }
+    return direction === "asc"
+      ? String(valueA).localeCompare(String(valueB))
+      : String(valueB).localeCompare(String(valueA));
+  });
+}
 
   function handleSort(key) {
-    if (sortKey === key) {
-      setDirection(direction === "asc" ? "desc" : "asc");
-    } else {
-      setSortKey(key);
-      setDirection("asc");
-    }
+  if (sortKey === key) {
+    setDirection(direction === "asc" ? "desc" : "asc");
+  } else {
+    setSortKey(key);
+    setDirection("asc");
   }
-
-  const sortedParts = sortKey
-    ? sortParts(partsContext, sortKey, direction)
-    : partsContext;
-
-    
+}
 
   const thItem = [
     {
@@ -59,6 +52,27 @@ const PartList = () => {
     },
   ];
 
+
+
+function getVisibleParts() {
+  let result = partsContext;
+  
+  result = result.filter((item) => {
+    if (filters.partNumber && item.partNumber !== filters.partNumber) return false;
+    if (filters.name && item.name !== filters.name) return false;
+    if (filters.quantity && item.quantity !== Number(filters.quantity)) return false;
+    if (filters.price && item.price !== Number(filters.price)) return false;
+
+    return true;
+  });
+
+  if (sortKey) {
+    result = sortParts(result, sortKey, direction);
+  }
+
+  return result;
+}
+
   return (
     <>
       <table>
@@ -77,7 +91,7 @@ const PartList = () => {
           </tr>
         </thead>
         <tbody>
-          {sortedParts.map((part) => (
+          {visibleParts.map((part) => (
             <tr key={part.id}>
               <td>{part.partNumber}</td>
               <td>{part.name}</td>

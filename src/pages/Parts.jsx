@@ -5,19 +5,25 @@ import PartList from "../components/parts/PartList";
 
 function Parts() {
   const [activeTab, setActiveTab] = useState("list");
+  const [filters, setFilters] = useState({});
+
   return (
     <div>
       <h1>Inventory</h1>
+    
+      <div>
+        <button onClick={() => setActiveTab("form")}>Add</button>
+        <button onClick={() => setActiveTab("search")}>Search</button>
+        <button onClick={() => setFilters({})}>Reset</button>
+      </div>
 
-    <div>
-      <button onClick={() => setActiveTab("form")}>Add</button>
-      <button onClick={() => setActiveTab("search")}>Search</button>
-      <button onClick={() => setActiveTab("list")}>List</button>
-    </div>
-
-    {activeTab === "form" && <PartForm />}
-    {activeTab === "search" && <PartSearch />}
-    {activeTab === "list" && <PartList />}
+      {activeTab === "form" && (
+        <PartForm filters={filters} setFilters={setFilters} />
+      )}
+      {activeTab === "search" && (
+        <PartSearch filters={filters} setFilters={setFilters} />
+      )}
+      <PartList filters={filters} setFilters={setFilters} />
     </div>
   );
 }

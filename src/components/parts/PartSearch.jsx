@@ -3,7 +3,7 @@ import Button from "../ui/Button";
 import Input from "../ui/Input";
 import { PartsContext } from "../../context/PartsContext";
 
-const PartSearch = () => {
+const PartSearch = ({setFilters}) => {
   const { partsContext } = useContext(PartsContext);
   const [searched, setSearched] = useState([])
 
@@ -15,31 +15,20 @@ const PartSearch = () => {
     { element: "button", name: "submit", type: "submit", text: "Search" },
   ];
 
-  function searchForPart(e) {
-    e.preventDefault();
+ function searchForPart(e) {
+  e.preventDefault();
 
-    const formData = new FormData(e.target);
+  const formData = new FormData(e.target);
 
-    const filters = {
-      partNumber: formData.get("partNumber"),
-      name: formData.get("name"),
-      quantity: formData.get("quantity"),
-      price: formData.get("price"),
-    };
+  const newFilters = {
+    partNumber: formData.get("partNumber"),
+    name: formData.get("name"),
+    quantity: formData.get("quantity"),
+    price: formData.get("price"),
+  };
 
-    const results = partsContext.filter((item) => {
-      if (filters.partNumber && item.partNumber !== filters.partNumber) return false;
-      if (filters.name && item.name !== filters.name) return false;
-      if (filters.quantity && item.quantity !== Number(filters.quantity)) return false;
-      if (filters.price && item.price !== Number(filters.price)) return false;
-
-      return true;
-    });
-
-    console.log(results);
-    setSearched(results)
-  }
-
+  setFilters(newFilters);
+}
   return (
     <>
       <h2>Teile suchen</h2>
