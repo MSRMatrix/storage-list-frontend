@@ -1,7 +1,6 @@
 import { useState } from "react";
 import "./App.css";
 import { PartsContext } from "./context/PartsContext";
-import Alerts from "./pages/Alerts";
 import Login from "./pages/Login";
 import Logout from "./pages/Logout";
 import Parts from "./pages/Parts";
@@ -25,10 +24,6 @@ function App() {
         {
           element: <Settings />,
           path: "settings",
-        },
-        {
-          element: <Alerts />,
-          path: "alerts",
         },
         {
           element: <Register />,

@@ -5,7 +5,6 @@ const Navbar = () => {
 const navbarItems = [
     { id: "parts", name: "Parts", path: "parts" },
     { id: "settings", name: "Settings", path: "settings" },
-    { id: "alerts", name: "Alerts", path: "alerts" },
     { id: "register", name: "Register", path: "register" },
     { id: "login", name: "Login", path: "login" },
     { id: "logout", name: "Logout", path: "logout" },
