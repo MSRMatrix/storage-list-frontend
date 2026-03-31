@@ -1,0 +1,11 @@
+.message{
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 20px;
+}
+
+.active{
+    display: block;
+}

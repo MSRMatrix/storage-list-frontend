@@ -18,9 +18,7 @@ export function getVisibleParts(partsContext, filters, sortKey, direction) {
 }
 
 
-
-
-export function sortParts(parts, key, direction) {
+function sortParts(parts, key, direction) {
   return [...parts].sort((a, b) => {
     const valueA = a[key];
     const valueB = b[key];

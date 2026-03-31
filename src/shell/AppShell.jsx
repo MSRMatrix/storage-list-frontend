@@ -6,6 +6,7 @@ import Footer from "../components/layout/Footer";
 import { partsServices } from "../services/partsService";
 import { PartsContext } from "../context/PartsContext";
 import { UserContext } from "../context/UserContext";
+import Message from "../components/feedback/Message";
 
 const AppShell = () => {
       const { partsContext, setPartsContext } = useContext(PartsContext);
@@ -19,8 +20,8 @@ const AppShell = () => {
   return (
     <>
       <Navbar />
-      AppShell
       <main>
+        <Message />
         <Outlet />
       </main>
       <Footer />

@@ -1,20 +1,27 @@
 import { useContext, useState } from "react";
 import { PartsContext } from "../../context/PartsContext";
 import { UserContext } from "../../context/UserContext";
-import { getVisibleParts } from "./test";
+import PartItem from "./PartItem";
 
-const PartList = ({filters, sortKey, setDirection, direction, setSortKey, visibleParts}) => {
+const PartList = ({
+  filters,
+  sortKey,
+  setDirection,
+  direction,
+  setSortKey,
+  visibleParts,
+}) => {
   const { partsContext, setPartsContext } = useContext(PartsContext);
   const { userContext, setUserContext } = useContext(UserContext);
 
   function handleSort(key) {
-  if (sortKey === key) {
-    setDirection(direction === "asc" ? "desc" : "asc");
-  } else {
-    setSortKey(key);
-    setDirection("asc");
+    if (sortKey === key) {
+      setDirection(direction === "asc" ? "desc" : "asc");
+    } else {
+      setSortKey(key);
+      setDirection("asc");
+    }
   }
-}
 
   const thItem = [
     {
@@ -54,12 +61,11 @@ const PartList = ({filters, sortKey, setDirection, direction, setSortKey, visibl
         </thead>
         <tbody>
           {visibleParts.map((part) => (
-            <tr key={part.id}>
-              <td>{part.partNumber}</td>
-              <td>{part.name}</td>
-              <td>{part.quantity}</td>
-              <td>{part.price.toString().split(".").join(",")}{userContext.currency === "Euro" ? "€" : userContext.currency === "Dollar" ? "$" : ""}</td>
-            </tr>
+            <PartItem
+              key={part.id}
+              part={part}
+              currency={userContext.currency}
+            />
           ))}
         </tbody>
       </table>

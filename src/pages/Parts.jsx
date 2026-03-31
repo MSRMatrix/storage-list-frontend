@@ -4,7 +4,7 @@ import PartSearch from "../components/parts/PartSearch";
 import PartList from "../components/parts/PartList";
 import { PartsContext } from "../context/PartsContext";
 import { UserContext } from "../context/UserContext";
-import { getVisibleParts } from "../components/parts/test";
+import { getVisibleParts } from "../utils/getVisibleParts";
 
 function Parts() {
   const { partsContext } = useContext(PartsContext);

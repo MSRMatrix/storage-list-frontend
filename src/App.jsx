@@ -10,6 +10,7 @@ import AppShell from "./shell/AppShell";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { UserContext } from "./context/UserContext";
+import { MessageContext } from "./context/MessageContext";
 
 function App() {
   const router = createBrowserRouter([
@@ -52,13 +53,21 @@ function App() {
     currency: "Euro",
   });
 
+  const [messageContext, setMessageContext] = useState({
+    text: "",
+    color: "transparent",
+    active: false
+  })
+
   return (
     <>
+    <MessageContext.Provider value={{messageContext, setMessageContext}}>
       <UserContext.Provider value={{ userContext, setUserContext }}>
         <PartsContext.Provider value={{ partsContext, setPartsContext }}>
           <RouterProvider router={router} />
         </PartsContext.Provider>
       </UserContext.Provider>
+      </MessageContext.Provider>
     </>
   );
 }
