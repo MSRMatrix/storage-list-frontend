@@ -8,6 +8,8 @@ import { PartsContext } from "../context/PartsContext";
 import { UserContext } from "../context/UserContext";
 import Message from "../components/feedback/Message";
 
+
+
 const AppShell = () => {
       const { partsContext, setPartsContext } = useContext(PartsContext);
   const {userContext, setUserContext} = useContext(UserContext)
@@ -20,8 +22,8 @@ const AppShell = () => {
   return (
     <>
       <Navbar />
+      <Message />
       <main>
-        <Message />
         <Outlet />
       </main>
       <Footer />

@@ -54,6 +54,7 @@ function App() {
   });
 
   const [messageContext, setMessageContext] = useState({
+    topic: "",
     text: "",
     color: "transparent",
     active: false
