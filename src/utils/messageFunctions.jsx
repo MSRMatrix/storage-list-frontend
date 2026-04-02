@@ -1,18 +1,11 @@
-export function activateMessage(topic, text, color, active, setMessageContext) {
-  setMessageContext((prev) => ({
-    ...prev,
+export function activateMessage(topic, text, status, setMessageContext) {
+  setMessageContext({
     topic: topic,
+    status: status,
     text: text,
-    color: color,
-    active: active,
-  }));
+    active: true,
+  });
 }
-export function deActivateMessage(
-  topic,
-  text,
-  color,
-  active,
-  setMessageContext,
-) {
-  setMessageContext({ topic: "", text: "", color: "", active: false });
+export function deActivateMessage(setMessageContext) {
+  setMessageContext({ topic: "", text: "", status: "", active: false });
 }

@@ -1,4 +1,6 @@
-export function getVisibleParts(partsContext, filters, sortKey, direction) {
+import { activateMessage } from "./messageFunctions";
+
+export function getVisibleParts(partsContext, filters, sortKey, direction, setMessageContext) {
   let result = partsContext;
   
   result = result.filter((item) => {
@@ -13,6 +15,12 @@ export function getVisibleParts(partsContext, filters, sortKey, direction) {
   if (sortKey) {
     result = sortParts(result, sortKey, direction);
   }
+console.log(result);
+
+    // const topic = result.length > 0 ? "Parts found: " : "No parts found!" 
+    // const text = result.length > 0 ? result.length : ""
+    // const status = result.length > 0 ? "200" : "404"
+    // activateMessage(topic, text, status, setMessageContext)
 
   return result;
 }

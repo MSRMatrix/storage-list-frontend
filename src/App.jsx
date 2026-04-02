@@ -55,8 +55,8 @@ function App() {
 
   const [messageContext, setMessageContext] = useState({
     topic: "",
+    status: "",
     text: "",
-    color: "transparent",
     active: false
   })
 

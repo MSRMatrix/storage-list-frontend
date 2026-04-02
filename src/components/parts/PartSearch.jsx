@@ -1,10 +1,9 @@
 import { useContext, useState } from "react";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
-import { PartsContext } from "../../context/PartsContext";
+import { searchForPart } from "../../utils/searchForPart";
 
 const PartSearch = ({setFilters}) => {
-  const { partsContext } = useContext(PartsContext);
   const [searched, setSearched] = useState([])
 
   const partFormItem = [
@@ -15,25 +14,12 @@ const PartSearch = ({setFilters}) => {
     { element: "button", name: "submit", type: "submit", text: "Search" },
   ];
 
- function searchForPart(e) {
-  e.preventDefault();
-
-  const formData = new FormData(e.target);
-
-  const newFilters = {
-    partNumber: formData.get("partNumber"),
-    name: formData.get("name"),
-    quantity: formData.get("quantity"),
-    price: formData.get("price"),
-  };
-
-  setFilters(newFilters);
-}
+ 
   return (
     <>
       <h2>Teile suchen</h2>
 
-      <form onSubmit={searchForPart}>
+      <form onSubmit={(e) => searchForPart(e, setFilters)}>
         {partFormItem.map((item) => {
           if (item.element === "button") {
             return (

@@ -5,10 +5,12 @@ import PartList from "../components/parts/PartList";
 import { PartsContext } from "../context/PartsContext";
 import { UserContext } from "../context/UserContext";
 import { getVisibleParts } from "../utils/getVisibleParts";
+import { MessageContext } from "../context/MessageContext";
 
 function Parts() {
   const { partsContext } = useContext(PartsContext);
   const { userContext } = useContext(UserContext);
+  const {messageContext, setMessageContext} = useContext(MessageContext)
 
   const [activeTab, setActiveTab] = useState("list");
   const [filters, setFilters] = useState({});
@@ -16,7 +18,7 @@ function Parts() {
   const [direction, setDirection] = useState("asc");
   const [lowOnly, setLowOnly] = useState(false);
 
-   const visibleParts = getVisibleParts(partsContext, filters, sortKey, direction)
+   const visibleParts = getVisibleParts(partsContext, filters, sortKey, direction, setMessageContext)
     .filter(p => !lowOnly || (p.lowLimit && p.quantity < p.lowLimit));
 
   function handleLowParts() {
