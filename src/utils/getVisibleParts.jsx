@@ -1,5 +1,3 @@
-import { activateMessage } from "./messageFunctions";
-
 export function getVisibleParts(partsContext, filters, sortKey, direction, setMessageContext) {
   let result = partsContext;
   
@@ -9,19 +7,14 @@ export function getVisibleParts(partsContext, filters, sortKey, direction, setMe
     if (filters.quantity && item.quantity !== Number(filters.quantity)) return false;
     if (filters.price && item.price !== Number(filters.price)) return false;
 
+    // Filter muss angepasst werden. Von - bis zu dem Wert den man eingegeben hat
+
     return true;
   });
 
   if (sortKey) {
     result = sortParts(result, sortKey, direction);
   }
-console.log(result);
-
-    // const topic = result.length > 0 ? "Parts found: " : "No parts found!" 
-    // const text = result.length > 0 ? result.length : ""
-    // const status = result.length > 0 ? "200" : "404"
-    // activateMessage(topic, text, status, setMessageContext)
-
   return result;
 }
 

@@ -21,6 +21,29 @@ function Parts() {
    const visibleParts = getVisibleParts(partsContext, filters, sortKey, direction, setMessageContext)
     .filter(p => !lowOnly || (p.lowLimit && p.quantity < p.lowLimit));
 
+useEffect(() => {
+  if (visibleParts.length <= 0){
+    setMessageContext({
+     topic: "No parts found",
+     text: visibleParts.length,
+     status: "404",
+     active: true
+   });
+    return;
+  } 
+
+  if(visibleParts){
+    setMessageContext({
+     topic: "Parts found",
+     text: visibleParts.length,
+     status: "200",
+     active: true
+   });
+  }
+   
+ }, [filters]);
+
+
   function handleLowParts() {
     setLowOnly(true);
   }
