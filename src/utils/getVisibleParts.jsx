@@ -1,4 +1,4 @@
-export function getVisibleParts(partsContext, filters, sortKey, direction, setMessageContext) {
+export function getVisibleParts(partsContext, filters, sortKey, direction) {
   let result = partsContext;
   
   result = result.filter((item) => {

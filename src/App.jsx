@@ -41,8 +41,10 @@ function App() {
       ],
     },
   ]);
-
-  const [partsContext, setPartsContext] = useState([]);
+const [partsContext, setPartsContext] = useState(
+  JSON.parse(localStorage.getItem("parts")) || []
+);
+  
   const [userContext, setUserContext] = useState({
     id: "",
     name: "",

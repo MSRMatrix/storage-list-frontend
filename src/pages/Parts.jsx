@@ -6,6 +6,7 @@ import { PartsContext } from "../context/PartsContext";
 import { UserContext } from "../context/UserContext";
 import { getVisibleParts } from "../utils/getVisibleParts";
 import { MessageContext } from "../context/MessageContext";
+import { activateMessage } from "../utils/messageFunctions";
 
 function Parts() {
   const { partsContext } = useContext(PartsContext);
@@ -22,23 +23,11 @@ function Parts() {
     .filter(p => !lowOnly || (p.lowLimit && p.quantity < p.lowLimit));
 
 useEffect(() => {
-  if (visibleParts.length <= 0){
-    setMessageContext({
-     topic: "No parts found",
-     text: visibleParts.length,
-     status: "404",
-     active: true
-   });
-    return;
-  } 
-
+  console.log(partsContext);
+  
   if(visibleParts){
-    setMessageContext({
-     topic: "Parts found",
-     text: visibleParts.length,
-     status: "200",
-     active: true
-   });
+    activateMessage("Parts found", visibleParts.length, "200", setMessageContext)
+    return;
   }
    
  }, [filters]);

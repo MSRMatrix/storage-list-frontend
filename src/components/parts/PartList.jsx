@@ -1,5 +1,4 @@
 import { useContext, useState } from "react";
-import { PartsContext } from "../../context/PartsContext";
 import { UserContext } from "../../context/UserContext";
 import PartItem from "./PartItem";
 
@@ -11,7 +10,6 @@ const PartList = ({
   setSortKey,
   visibleParts,
 }) => {
-  const { partsContext, setPartsContext } = useContext(PartsContext);
   const { userContext, setUserContext } = useContext(UserContext);
 
   function handleSort(key) {
