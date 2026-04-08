@@ -18,13 +18,16 @@ function Parts() {
   const [sortKey, setSortKey] = useState(null);
   const [direction, setDirection] = useState("asc");
   const [lowOnly, setLowOnly] = useState(false);
+  const [deleted, setDeleted] = useState(false)
 
-   const visibleParts = getVisibleParts(partsContext, filters, sortKey, direction, setMessageContext)
-    .filter(p => !lowOnly || (p.lowLimit && p.quantity < p.lowLimit));
-
-useEffect(() => {
-  console.log(partsContext);
+  const visibleParts = getVisibleParts(partsContext, filters, sortKey, direction, setMessageContext)
+  .filter(p => {
+    if (deleted) return p.deleted;
+    return !p.deleted;
+  })
+  .filter(p => !lowOnly || (p.lowLimit && p.quantity < p.lowLimit));
   
+useEffect(() => {
   if(visibleParts){
     activateMessage("Parts found", visibleParts.length, "200", setMessageContext)
     return;
@@ -37,20 +40,26 @@ useEffect(() => {
     setLowOnly(true);
   }
 
+  function deletedParts(){
+    setDeleted(true)
+  }
+
   function handleReset() {
     setFilters({});
     setLowOnly(false);
+    setDeleted(false)
   }
+
   return (
     <div>
       <h1>Inventory</h1>
-
       <div>
-        <button onClick={() => setActiveTab("list")}>List</button>
+        <button onClick={() => {setActiveTab("list"), handleReset()}}>List</button>
         <button onClick={() => setActiveTab("form")}>Add</button>
         <button onClick={() => setActiveTab("search")}>Search</button>
         <button onClick={handleReset}>Reset</button>
         <button onClick={handleLowParts}>Low Parts</button>
+        <button onClick={deletedParts}>Deleted Parts</button>
       </div>
 
       {activeTab === "form" && <PartForm filters={filters} setFilters={setFilters} />}

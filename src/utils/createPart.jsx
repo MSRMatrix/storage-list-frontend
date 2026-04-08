@@ -13,6 +13,7 @@ export function createPart(e, partsContext, setPartsContext, setMessageContext) 
     quantity: Number(formData.get("quantity")),
     price: Number(formData.get("price")),
     lowLimit: Number(formData.get("lowLimit")),
+    deleted: false
   };
 
   function updateParts(newArray) {
@@ -31,7 +32,7 @@ export function createPart(e, partsContext, setPartsContext, setMessageContext) 
       if (item.partNumber === newItem.partNumber) {
         return {
           ...item,
-          quantity: item.quantity + newItem.quantity,
+          quantity: item.quantity + newItem.quantity
         };
       }
       return item;

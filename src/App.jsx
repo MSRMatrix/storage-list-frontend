@@ -53,6 +53,7 @@ const [partsContext, setPartsContext] = useState(
     role: "user",
     loggedIn: false,
     currency: "Euro",
+    deleted: false
   });
 
   const [messageContext, setMessageContext] = useState({
