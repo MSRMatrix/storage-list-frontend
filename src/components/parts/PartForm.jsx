@@ -7,7 +7,7 @@ import { createPart } from "../../utils/createPart";
 
 const PartForm = () => {
   const { partsContext, setPartsContext } = useContext(PartsContext);
-const {messageContext, setMessageContext} = useContext(MessageContext)
+  const { messageContext, setMessageContext } = useContext(MessageContext);
 
   const partFormItem = [
     {
@@ -33,13 +33,15 @@ const {messageContext, setMessageContext} = useContext(MessageContext)
     { element: "button", type: "submit", text: "Add Part" },
   ];
 
- 
-
   return (
     <>
       <h2>Teile hinzufügen</h2>
 
-      <form onSubmit={(e) => createPart(e, partsContext, setPartsContext, setMessageContext)}>
+      <form
+        onSubmit={(e) =>
+          createPart(e, partsContext, setPartsContext, setMessageContext)
+        }
+      >
         {partFormItem.map((item) => {
           if (item.element === "button") {
             return <Button key={item.type} type={item.type} text={item.text} />;
