@@ -1,0 +1,11 @@
+.loading {
+  height: 5px;
+  background: linear-gradient(90deg, red, blue);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite linear;
+}
+
+@keyframes loading {
+  100% { background-position: 0% }
+  0% { background-position: 200% }
+}

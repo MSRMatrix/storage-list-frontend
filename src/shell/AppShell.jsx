@@ -7,6 +7,7 @@ import { partsServices } from "../services/partsService";
 import { PartsContext } from "../context/PartsContext";
 import { UserContext } from "../context/UserContext";
 import Message from "../components/feedback/Message";
+import Loading from "../components/ui/Loading";
 
 
 
@@ -24,6 +25,7 @@ const AppShell = () => {
       <Navbar />
       <Message />
       <main>
+        <Loading />
         <Outlet />
       </main>
       <Footer />
