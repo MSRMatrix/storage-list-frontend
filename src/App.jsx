@@ -11,6 +11,7 @@ import AppShell from "./shell/AppShell";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { UserContext } from "./context/UserContext";
 import { MessageContext } from "./context/MessageContext";
+import { LoadingContext } from "./context/LoadingContext";
 
 function App() {
   const router = createBrowserRouter([
@@ -41,10 +42,10 @@ function App() {
       ],
     },
   ]);
-const [partsContext, setPartsContext] = useState(
-  JSON.parse(localStorage.getItem("parts")) || []
-);
-  
+  const [partsContext, setPartsContext] = useState(
+    JSON.parse(localStorage.getItem("parts")) || [],
+  );
+
   const [userContext, setUserContext] = useState({
     id: "",
     name: "",
@@ -53,25 +54,29 @@ const [partsContext, setPartsContext] = useState(
     role: "user",
     loggedIn: false,
     currency: "Euro",
-    deleted: false
+    deleted: false,
   });
 
   const [messageContext, setMessageContext] = useState({
     topic: "",
     status: "",
     text: "",
-    active: false
-  })
+    active: false,
+  });
+
+  const [loadingContext, setLoadingContext] = useState(false);
 
   return (
     <>
-    <MessageContext.Provider value={{messageContext, setMessageContext}}>
-      <UserContext.Provider value={{ userContext, setUserContext }}>
-        <PartsContext.Provider value={{ partsContext, setPartsContext }}>
-          <RouterProvider router={router} />
-        </PartsContext.Provider>
-      </UserContext.Provider>
-      </MessageContext.Provider>
+      <LoadingContext.Provider value={{ loadingContext, setLoadingContext }}>
+        <MessageContext.Provider value={{ messageContext, setMessageContext }}>
+          <UserContext.Provider value={{ userContext, setUserContext }}>
+            <PartsContext.Provider value={{ partsContext, setPartsContext }}>
+              <RouterProvider router={router} />
+            </PartsContext.Provider>
+          </UserContext.Provider>
+        </MessageContext.Provider>
+      </LoadingContext.Provider>
     </>
   );
 }

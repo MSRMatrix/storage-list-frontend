@@ -7,11 +7,13 @@ import { UserContext } from "../context/UserContext";
 import { getVisibleParts } from "../utils/getVisibleParts";
 import { MessageContext } from "../context/MessageContext";
 import { activateMessage } from "../utils/messageFunctions";
+import { LoadingContext } from "../context/LoadingContext";
 
 function Parts() {
   const { partsContext } = useContext(PartsContext);
   const { userContext } = useContext(UserContext);
   const { messageContext, setMessageContext } = useContext(MessageContext);
+  const {loadingContext, setLoadingContext} = useContext(LoadingContext)
 
   const [activeTab, setActiveTab] = useState("list");
   const [filters, setFilters] = useState({});
@@ -19,8 +21,7 @@ function Parts() {
   const [direction, setDirection] = useState("asc");
   const [lowOnly, setLowOnly] = useState(false);
   const [deleted, setDeleted] = useState(false);
-
-  const visibleParts = getVisibleParts(
+  const [visibleParts, setVisibleParts] = useState(getVisibleParts(
   partsContext,
   filters,
   sortKey,
@@ -34,8 +35,8 @@ function Parts() {
   .filter((p) => {
     if (deleted) return true; 
     return !lowOnly || (p.lowLimit && p.quantity < p.lowLimit);
-  });
-  
+  }))
+
   function handleLowParts() {
     setDeleted(false);
     setLowOnly(true);
@@ -52,14 +53,18 @@ function Parts() {
     setDeleted(false);
   }
 
-  useEffect(() => {
+useEffect(() => {
+  setLoadingContext(true);
+
   activateMessage(
     "Parts found",
     visibleParts.length,
     visibleParts.length > 0 ? "200" : "404",
     setMessageContext
   );
-}, [filters, lowOnly, deleted, sortKey, direction]);
+
+  setLoadingContext(false);
+}, [visibleParts]);
 
   return (
     <div>

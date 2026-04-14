@@ -1,5 +1,5 @@
 .loading {
-  height: 5px;
+  height: 10px;
   background: linear-gradient(90deg, red, blue);
   background-size: 200% 100%;
   animation: loading 1.5s infinite linear;
