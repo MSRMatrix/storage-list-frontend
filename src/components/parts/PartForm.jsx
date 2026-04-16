@@ -2,8 +2,8 @@ import { useContext } from "react";
 import { PartsContext } from "../../context/PartsContext";
 import { MessageContext } from "../../context/MessageContext";
 import Input from "../ui/Input";
-import Button from "../ui/Button";
 import { createPart } from "../../utils/createPart";
+import CustomButton from "../ui/CustomButton";
 
 const PartForm = () => {
   const { partsContext, setPartsContext } = useContext(PartsContext);
@@ -44,7 +44,7 @@ const PartForm = () => {
       >
         {partFormItem.map((item) => {
           if (item.element === "button") {
-            return <Button key={item.type} type={item.type} text={item.text} />;
+            return <CustomButton key={item.type} type={item.type} text={item.text} />;
           }
           return <Input key={item.name} item={item} required={true} />;
         })}

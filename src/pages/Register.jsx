@@ -1,3 +1,5 @@
+import CustomForm from "../components/ui/CustomForm";
+
 const Register = () => {
 
     function register(e){
@@ -9,25 +11,16 @@ const Register = () => {
     })
     }
 
-  const registerForm = [
-    {
-      name: "Name",
-    },
-    { name: "Email" },
-    { name: "Repeat Email" },
-    { name: "Password" },
-  ];
+const registerForm = [
+  { label: "Username", name: "username", type: "text" },
+  { label: "Email", name: "email", type: "email" },
+  { label: "Repeat Email", name: "repeatEmail", type: "email" },
+  { label: "Password", name: "password", type: "password" },
+];
+
   return (
     <>
-      <form action="" onSubmit={(e) => register(e)}>
-        {registerForm.map((item) => {
-          <fieldset key={item.name}>
-            <legend>{item.name}</legend>
-            <input name={item.name} type="text" />
-          </fieldset>;
-        })}
-        <button type="submit">Register</button>
-      </form>
+    <CustomForm className={"register"} formItem={registerForm} onSubmit={register}/>
     </>
   );
 };

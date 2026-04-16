@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import Button from "../ui/Button";
+import CustomButton from "../ui/CustomButton";
 import Input from "../ui/Input";
 import { searchForPart } from "../../utils/searchForPart";
 
@@ -23,7 +23,7 @@ const PartSearch = ({setFilters}) => {
         {partFormItem.map((item) => {
           if (item.element === "button") {
             return (
-              <Button
+              <CustomButton
                 key={item.name}
                 type={item.type}
                 text={item.text}
