@@ -1,5 +1,31 @@
 import { activateMessage } from "./messageFunctions";
 
+
+
+const URL = import.meta.env.VITE_BACKENDURL;
+  async function test(){
+     try {
+      const response = await fetch(
+        `${URL}/part/create`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }
+      );
+      const data = await response.json();
+      if (!response.ok) {
+        return console.log(data);
+      } else {
+        console.log(data);
+      }
+    } catch (error) {
+      console.error("Error toggling 2FA:", error);
+    }
+  }
+
 export function createPart(e, partsContext, setPartsContext, setMessageContext) {
   e.preventDefault();
   const topic = "Teile Status";  
@@ -45,6 +71,5 @@ export function createPart(e, partsContext, setPartsContext, setMessageContext) 
   const text = "Teil hinzugefügt";
   const status = "200"
   activateMessage(topic, text, status, setMessageContext)
-
-  e.target.reset();
+// test()
 }
