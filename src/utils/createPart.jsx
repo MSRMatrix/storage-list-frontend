@@ -39,9 +39,12 @@ export function createPart(e, partsContext, setPartsContext, setMessageContext) 
     quantity: Number(formData.get("quantity")),
     price: Number(formData.get("price")),
     lowLimit: Number(formData.get("lowLimit")),
+    description: formData.get("description") || "No description",
     deleted: false
   };
 
+  console.log(newItem);
+  
   function updateParts(newArray) {
     setPartsContext(newArray);
     localStorage.setItem("parts", JSON.stringify(newArray));

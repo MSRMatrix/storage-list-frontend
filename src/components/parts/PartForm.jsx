@@ -4,6 +4,7 @@ import { MessageContext } from "../../context/MessageContext";
 import Input from "../ui/Input";
 import { createPart } from "../../utils/createPart";
 import CustomButton from "../ui/CustomButton";
+import CustomTextarea from "../ui/CustomTextarea";
 
 const PartForm = () => {
   const { partsContext, setPartsContext } = useContext(PartsContext);
@@ -30,6 +31,11 @@ const PartForm = () => {
       placeholder: "Low-Limit",
       type: "number",
     },
+    {
+      element: "textarea",
+      name: "description",
+      placeholder: "description",
+    },
     { element: "button", type: "submit", text: "Add Part" },
   ];
 
@@ -46,7 +52,10 @@ const PartForm = () => {
           if (item.element === "button") {
             return <CustomButton key={item.type} type={item.type} text={item.text} />;
           }
-          return <Input key={item.name} item={item} required={true} />;
+          if(item.element === "input"){
+            return <Input key={item.name} item={item} required={true} />
+          }
+          return <CustomTextarea key={item.name} item={item}/>;
         })}
       </form>
     </>
