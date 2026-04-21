@@ -1,6 +1,6 @@
-const CustomButton = ({type, text, onClickFuntion}) => {
+const CustomButton = ({type, text, onClickFuntion, disabled}) => {
     return(
-        <button type={type} onClick={onClickFuntion} >
+        <button type={type} onClick={onClickFuntion} disabled={disabled}>
             {text}
         </button>
         
