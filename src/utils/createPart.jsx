@@ -27,6 +27,7 @@ export function createPart(
   partsContext,
   setPartsContext,
   setMessageContext,
+  userId
 ) {
   e.preventDefault();
 
@@ -80,7 +81,9 @@ export function createPart(
     localStorage.setItem("parts", JSON.stringify(newArray));
   }
 
-  updateParts(updated);
+  if(userId){
+    updateParts(updated);
+  }
 
   const text = "Teil hinzugefügt";
   const status = "200";
