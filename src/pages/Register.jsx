@@ -2,28 +2,30 @@ import CustomForm from "../components/ui/CustomForm";
 
 const Register = () => {
 
-    function register(e){
+    function registerFunction(e){
         e.preventDefault()
         const formData = new FormData(e.target);
     const formDataObject = {};
     formData.forEach((value, key) => {
         formDataObject[key] = value;
     })
+    console.log(formDataObject);
+    
     }
 
 const registerForm = [
-  { label: "Username", name: "username", type: "text" },
-  { label: "Email", name: "email", type: "email" },
-  { label: "Company", name: "company", type: "text" },
-  { label: "Currency", name: "currency", type: "text" },
-  { label: "Repeat Email", name: "repeatEmail", type: "email" },
-  { label: "Password", name: "password", type: "password" },
+  { element: "input", label: "Username", name: "username", type: "text" },
+  { element: "input", label: "Email", name: "email", type: "email" },
+  { element: "input", label: "Company", name: "company", type: "text" },
+  { element: "select", label: "Currency", name: "currency", type: "text" },
+  { element: "input", label: "Repeat Email", name: "repeatEmail", type: "email" },
+  { element: "input", label: "Password", name: "password", type: "password" },
 
 ];
 
   return (
     <>
-    <CustomForm className={"register"} formItem={registerForm} onSubmit={register}/>
+    <CustomForm className={"register"} formItem={registerForm} onSubmit={registerFunction}/>
     </>
   );
 };

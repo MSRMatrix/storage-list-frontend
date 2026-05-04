@@ -13,9 +13,9 @@ const Login = () => {
 
 const loginForm = [
     secondOption ? 
-  { label: "Username", name: "username", type: "text" } : 
-  { label: "Email", name: "email", type: "email" },
-  { label: "Password", name: "password", type: "password" },
+  { element: "input", label: "Username", name: "username", type: "text" } : 
+  { element: "input", label: "Email", name: "email", type: "email" },
+  { element: "input", label: "Password", name: "password", type: "password" },
 ];
 
     return(
