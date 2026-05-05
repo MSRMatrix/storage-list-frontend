@@ -1,26 +1,5 @@
+import { createPartRequest } from "./fetchFunction";
 import { activateMessage } from "./messageFunctions";
-
-const URL = import.meta.env.VITE_BACKENDURL;
-async function test(newItem) {
-  try {
-    const response = await fetch(`${URL}/part/create`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify(newItem),
-    });
-    const data = await response.json();
-    if (!response.ok) {
-      return console.log(data);
-    } else {
-      console.log(data);
-    }
-  } catch (error) {
-    console.error("Error toggling 2FA:", error);
-  }
-}
 
 export function createPart(
   e,
@@ -74,7 +53,7 @@ export function createPart(
     updated = [...partsContext, newItem];
   }
 
-  test(newItem);
+  createPartRequest(newItem);
 
   function updateParts(newArray) {
     setPartsContext(newArray);

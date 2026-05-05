@@ -1,0 +1,61 @@
+const URL = import.meta.env.VITE_BACKENDURL;
+
+export async function fetchParts() {
+  try {
+    const response = await fetch(`${URL}/part`, {
+      method: "GET",
+      credentials: "include",
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) throw new Error(data.message);
+
+    return data;
+  } catch (error) {
+    console.error("Fetch parts error:", error);
+    return null;
+  }
+}
+
+export async function createPartRequest(newItem) {
+  try {
+    const response = await fetch(`${URL}/part/create`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(newItem),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) throw new Error(data.message);
+
+    return data;
+  } catch (error) {
+    console.error("Create error:", error);
+  }
+}
+
+export async function updatePart(partId, updateData) {
+  try {
+    const response = await fetch(`${URL}/part/${partId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(updateData),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) throw new Error(data.message);
+
+    return data;
+  } catch (error) {
+    console.error("Update error:", error);
+  }
+}
