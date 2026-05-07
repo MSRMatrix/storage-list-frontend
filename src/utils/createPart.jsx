@@ -1,4 +1,4 @@
-import { createPartRequest } from "./fetchFunction";
+import { createRequest } from "./fetchFunction";
 import { activateMessage } from "./messageFunctions";
 
 export function createPart(
@@ -53,7 +53,7 @@ export function createPart(
     updated = [...partsContext, newItem];
   }
 
-  createPartRequest(newItem);
+  createRequest(newItem, "part");
 
   function updateParts(newArray) {
     setPartsContext(newArray);

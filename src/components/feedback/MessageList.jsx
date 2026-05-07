@@ -8,7 +8,7 @@ const MessageList = () => {
     if(messageContext.active){
         setTimeout(() => {
             deActivateMessage(setMessageContext)
-        }, 5000);
+        }, 10000);
     }
  
     return(

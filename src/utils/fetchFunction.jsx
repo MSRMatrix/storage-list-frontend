@@ -1,3 +1,5 @@
+import { activateMessage } from "./messageFunctions";
+
 const URL = import.meta.env.VITE_BACKENDURL;
 
 export async function fetchParts() {
@@ -18,9 +20,9 @@ export async function fetchParts() {
   }
 }
 
-export async function createPartRequest(newItem) {
+export async function createRequest(newItem, method, setMessageContext) {
   try {
-    const response = await fetch(`${URL}/part/create`, {
+    const response = await fetch(`${URL}/${method}/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -31,7 +33,11 @@ export async function createPartRequest(newItem) {
 
     const data = await response.json();
 
-    if (!response.ok) throw new Error(data.message);
+    if (!response.ok) {
+ const errorMsg =  data.errors?.map((item) => `• ${item.msg}`).join("\n")
+activateMessage("Error", errorMsg, "404", setMessageContext)
+      return;
+    }
 
     return data;
   } catch (error) {

@@ -7,7 +7,7 @@ const CustomForm = ({ className, formItem, onSubmit }) => {
         <div key={item.name}>
           <label htmlFor={item.name}>{item.label}</label>
           {item.element === "input" ? (
-            <Input item={item} required={true} />
+            <Input item={item} required={item.required} />
           ) : (
             <></>
           )}
