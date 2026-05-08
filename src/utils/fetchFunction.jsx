@@ -32,6 +32,7 @@ export async function createRequest(newItem, method, setMessageContext) {
     });
 
     const data = await response.json();
+console.log(data);
 
     if (!response.ok) {
  const errorMsg =  data.errors?.map((item) => `• ${item.msg}`).join("\n")

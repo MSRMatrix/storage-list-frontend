@@ -22,7 +22,7 @@ const Register = () => {
 const registerForm = [
   { element: "input", label: "Username", name: "username", type: "text" },
   { element: "input", label: "Email", name: "email", type: "email", required: true },
-  { element: "input", label: "Company", name: "company", type: "text" },
+  { element: "input", label: "Company", name: "company", type: "checkbox" },
   { element: "select", label: "Currency", name: "currency", type: "text" },
   { element: "input", label: "Repeat Email", name: "repeatEmail", type: "email", required: true  },
   { element: "input", label: "Password", name: "password", type: "password", required: true  },
