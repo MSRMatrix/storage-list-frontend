@@ -2,10 +2,12 @@ import { useContext } from "react";
 import CustomForm from "../components/ui/CustomForm";
 import { createRequest } from "../utils/fetchFunction";
 import { MessageContext } from "../context/MessageContext";
+import { useNavigate } from "react-router"
 
 const Register = () => {
 
   const { messageContext, setMessageContext } = useContext(MessageContext);
+  const navigate = useNavigate()
 
     function registerFunction(e){
         e.preventDefault()
@@ -16,7 +18,7 @@ const Register = () => {
     })
     console.log(formDataObject);
 
-    createRequest(formDataObject, "user", setMessageContext);
+    createRequest(formDataObject, "user", setMessageContext, navigate, "/login");
     }
 
 const registerForm = [

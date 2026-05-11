@@ -20,7 +20,7 @@ export async function fetchParts() {
   }
 }
 
-export async function createRequest(newItem, method, setMessageContext) {
+export async function createRequest(newItem, method, setMessageContext, navigate, link) {
   try {
     const response = await fetch(`${URL}/${method}/create`, {
       method: "POST",
@@ -32,14 +32,15 @@ export async function createRequest(newItem, method, setMessageContext) {
     });
 
     const data = await response.json();
-console.log(data);
-
     if (!response.ok) {
  const errorMsg =  data.errors?.map((item) => `• ${item.msg}`).join("\n")
 activateMessage("Error", errorMsg, "404", setMessageContext)
       return;
     }
-
+    if(link === "/login"){
+      navigate(link)
+    }
+    
     return data;
   } catch (error) {
     console.error("Create error:", error);
