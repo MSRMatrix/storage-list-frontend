@@ -1,6 +1,8 @@
 import { NavLink  } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const navigate = useNavigate()
 
 const navbarItems = [
     { id: "parts", name: "Parts", path: "parts" },
@@ -10,14 +12,23 @@ const navbarItems = [
     { id: "logout", name: "Logout", path: "logout" },
 ]
 
+async function logout(){
+  const wantToLogout = confirm("You want to logout?")
+  if(wantToLogout){
+    alert("Logout Function")
+    navigate("/")
+  }else{
+    alert("Logout stopped!")
+    navigate("/")
+  }
+}
+
 return (
-   <ul>
-  {navbarItems.map((item) => (
-    <li key={item.id}>
-      <NavLink to={`/${item.path}`}>
+   <ul className="navbar">
+  {navbarItems.map((item) => ( item.id === "logout" ? <li className="navbar-children" onClick={() => logout()}> {item.id}</li> :
+      <NavLink to={`/${item.path}`}key={item.id} className="navbar-children">
         {item.name}
       </NavLink>
-    </li>
   ))}
 </ul>
 )
