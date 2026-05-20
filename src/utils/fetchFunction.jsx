@@ -47,6 +47,40 @@ activateMessage("Error", errorMsg, "404", setMessageContext)
   }
 }
 
+
+
+export async function login(newItem, method, setMessageContext, navigate, link) {
+  try {
+    const response = await fetch(`${URL}/${method}/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(newItem),
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+ const errorMsg =  data.errors?.map((item) => `• ${item.msg}`).join("\n")
+activateMessage("Error", errorMsg, "404", setMessageContext)
+      return;
+    }
+    if(link === "/part"){
+      navigate(link)
+    }
+    
+    return data;
+  } catch (error) {
+    console.error("Create error:", error);
+  }
+}
+
+
+
+
+
+
 export async function updatePart(partId, updateData) {
   try {
     const response = await fetch(`${URL}/part/${partId}`, {

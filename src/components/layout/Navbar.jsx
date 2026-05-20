@@ -25,7 +25,7 @@ async function logout(){
 
 return (
    <ul className="navbar">
-  {navbarItems.map((item) => ( item.id === "logout" ? <li className="navbar-children" onClick={() => logout()}> {item.id}</li> :
+  {navbarItems.map((item) => ( item.id === "logout" ? <li className="navbar-children" key={item.id} onClick={() => logout()}> {item.id}</li> :
       <NavLink to={`/${item.path}`}key={item.id} className="navbar-children">
         {item.name}
       </NavLink>

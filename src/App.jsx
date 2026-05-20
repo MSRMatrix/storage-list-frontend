@@ -2,7 +2,6 @@ import { useState } from "react";
 import "./App.css";
 import { PartsContext } from "./context/PartsContext";
 import Login from "./pages/Login";
-import Logout from "./pages/Logout";
 import Parts from "./pages/Parts";
 import Register from "./pages/Register";
 import Settings from "./pages/Settings";
@@ -34,10 +33,6 @@ function App() {
         {
           element: <Login />,
           path: "login",
-        },
-        {
-          element: <Logout />,
-          path: "logout",
         },
       ],
     },

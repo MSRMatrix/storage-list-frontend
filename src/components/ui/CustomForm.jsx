@@ -1,8 +1,10 @@
 import Input from "./Input";
+import {useNavigate} from "react-router"
 
 const CustomForm = ({ className, formItem, onSubmit }) => {
+    const navigate = useNavigate()
   return (
-    <form className={className} onSubmit={onSubmit}>
+    <form className={className} onSubmit={(e) => onSubmit(e, navigate)}>
       {formItem.map((item) => (
         <div key={item.name}>
           <label htmlFor={item.name}>{item.label}</label>
