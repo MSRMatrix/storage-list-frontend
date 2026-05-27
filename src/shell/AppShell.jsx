@@ -21,7 +21,6 @@ const AppShell = () => {
     partsServices(partsContext, setPartsContext, userContext, setUserContext)
   }, []);
 //   dependency fehlt
-console.log(loadingContext);
 
   return (
     <>

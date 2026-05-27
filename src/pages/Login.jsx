@@ -1,10 +1,12 @@
 import { useContext, useState } from "react";
 import CustomForm from "../components/ui/CustomForm";
 import CustomButton from "../components/ui/CustomButton";
-import { createRequest } from "../utils/fetchFunction";
+import { createRequest, loginFetch } from "../utils/fetchFunction";
 import { MessageContext } from "../context/MessageContext";
+import { UserContext } from "../context/UserContext";
 const Login = () => {
   const { messageContext, setMessageContext } = useContext(MessageContext);
+  const {userContext, setUserContext} = useContext(UserContext)
 
     const [secondOption, setSecondOption] = useState(false)
 
@@ -20,18 +22,17 @@ const Login = () => {
     formData.forEach((value, key) => {
         formDataObject[key] = value;
     })
-    console.log(formDataObject);
-
-
-    createRequest(formDataObject, "user", setMessageContext, navigate, "/");
+    loginFetch(formDataObject, "user", setMessageContext, navigate, "/", setUserContext);
     }
 
 const loginForm = [
     secondOption ? 
-  { element: "input", label: "Username", name: "username", type: "text" } : 
-  { element: "input", label: "Email", name: "email", type: "email" },
-  { element: "input", label: "Password", name: "password", type: "password" },
+  { element: "input", label: "Username", name: "username", type: "text", required: true } : 
+  { element: "input", label: "Email", name: "email", type: "email", required: true },
+  { element: "input", label: "Password", name: "password", type: "password", required: true },
 ];
+console.log(userContext);
+
 
     return(
         <>

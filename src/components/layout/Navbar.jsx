@@ -1,16 +1,23 @@
 import { NavLink  } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../context/UserContext";
+import { useContext } from "react";
 
 const Navbar = () => {
-  const navigate = useNavigate()
-
+  const navigate = useNavigate()  
+  const {userContext, setUserContext} = useContext(UserContext)
+  
 const navbarItems = [
-    { id: "parts", name: "Parts", path: "parts" },
-    { id: "settings", name: "Settings", path: "settings" },
-    { id: "register", name: "Register", path: "register" },
-    { id: "login", name: "Login", path: "login" },
-    { id: "logout", name: "Logout", path: "logout" },
-]
+  { id: "parts", name: "Parts", path: "parts" },
+  { id: "settings", name: "Settings", path: "settings" },
+
+  ...(userContext.createdAt
+    ? [{ id: "logout", name: "Logout", path: "logout" }]
+    : [
+        { id: "register", name: "Register", path: "register" },
+        { id: "login", name: "Login", path: "login" },
+      ]),
+];
 
 async function logout(){
   const wantToLogout = confirm("You want to logout?")
