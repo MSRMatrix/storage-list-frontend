@@ -16,7 +16,6 @@ const MessageList = () => {
             <button onClick={() => deActivateMessage(setMessageContext)}>X</button>
             <h2>{messageContext.topic}</h2>
             <p>{messageContext.text}</p>
-      Nachrichten Liste
         </div>
         
     )

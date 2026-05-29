@@ -4,9 +4,11 @@ import CustomButton from "../components/ui/CustomButton";
 import { createRequest, loginFetch } from "../utils/fetchFunction";
 import { MessageContext } from "../context/MessageContext";
 import { UserContext } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
 const Login = () => {
   const { messageContext, setMessageContext } = useContext(MessageContext);
   const {userContext, setUserContext} = useContext(UserContext)
+  const navigate = useNavigate()
 
     const [secondOption, setSecondOption] = useState(false)
 
@@ -22,7 +24,7 @@ const Login = () => {
     formData.forEach((value, key) => {
         formDataObject[key] = value;
     })
-    loginFetch(formDataObject, "user", setMessageContext, navigate, "/", setUserContext);
+    loginFetch(formDataObject, "user", setMessageContext, navigate, "/Dashboard", setUserContext);
     }
 
 const loginForm = [
@@ -31,9 +33,6 @@ const loginForm = [
   { element: "input", label: "Email", name: "email", type: "email", required: true },
   { element: "input", label: "Password", name: "password", type: "password", required: true },
 ];
-console.log(userContext);
-
-
     return(
         <>
         <CustomForm className={"register"} formItem={loginForm} onSubmit={login}/>

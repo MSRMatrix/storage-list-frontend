@@ -11,6 +11,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { UserContext } from "./context/UserContext";
 import { MessageContext } from "./context/MessageContext";
 import { LoadingContext } from "./context/LoadingContext";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   const router = createBrowserRouter([
@@ -18,6 +19,10 @@ function App() {
       element: <AppShell />,
       path: "/",
       children: [
+        {
+          element: <Dashboard />,
+          path: "dashboard",
+        },
         {
           element: <Parts />,
           path: "parts",

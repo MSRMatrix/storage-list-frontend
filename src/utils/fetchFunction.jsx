@@ -50,14 +50,6 @@ activateMessage("Error", errorMsg, "404", setMessageContext)
 
 
 export async function loginFetch(newItem, method, setMessageContext, navigate, link, setUserContext) {
-   console.log(await fetch(`${URL}/${method}/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify(newItem),
-    }));
    
   try {
     const response = await fetch(`${URL}/${method}/login`, {
@@ -68,19 +60,17 @@ export async function loginFetch(newItem, method, setMessageContext, navigate, l
       credentials: "include",
       body: JSON.stringify(newItem),
     });
-
     const data = await response.json();
 
     if (!response.ok) {
  const errorMsg =  data.errors?.map((item) => `• ${item.msg}`).join("\n")
-activateMessage("Error", errorMsg, "404", setMessageContext)
+activateMessage("Error", data.message, "404", setMessageContext)
       return;
     }
-    if(link === "/part"){
-      navigate(link)
-    }
     if(response.ok){
+      activateMessage("Login succsessfull!", `Welcome back, ${data.username ? data.username : "User"}`, "200", setMessageContext)
       setUserContext(data.userData)
+      navigate(link)
       return
     }
     
