@@ -2,10 +2,13 @@ import { NavLink  } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
 import { useContext } from "react";
+import { logoutFetch } from "../../utils/fetchFunction";
+import { MessageContext } from "../../context/MessageContext";
 
 const Navbar = () => {
   const navigate = useNavigate()  
   const {userContext, setUserContext} = useContext(UserContext)
+  const {setMessageContext} = useContext(MessageContext)
   
 const navbarItems = [
   { id: "parts", name: "Parts", path: "parts" },
@@ -22,7 +25,7 @@ const navbarItems = [
 async function logout(){
   const wantToLogout = confirm("You want to logout?")
   if(wantToLogout){
-    alert("Logout Function")
+    logoutFetch("user", setMessageContext, navigate, "/dashboard", setUserContext)
     navigate("/")
   }else{
     alert("Logout stopped!")

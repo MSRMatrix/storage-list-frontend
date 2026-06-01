@@ -10,7 +10,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <h2>Welcome back, {userContext.username || "User"}</h2>
+    {userContext.createdAt ? <div><h2>Welcome back, {userContext.username || "User"}</h2>
       <p>Currency: {userContext.currency}</p>
       <p>
         Account created: {new Date(userContext.createdAt).toLocaleDateString()}
@@ -18,7 +18,8 @@ const Dashboard = () => {
 
       <p>Is it a company: {userContext.company ? "Yes" : "No"}</p>
       <p>Your Email: {userContext.email}</p>
-      <p>Password: Protected</p>
+      <p>Password: Protected</p></div> : <></>}
+      
       <p>Number of parts: {partsContext.length}</p>
       <p>Deleted parts: {deletedParts}</p>
     </>

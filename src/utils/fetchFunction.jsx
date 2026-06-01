@@ -79,6 +79,37 @@ activateMessage("Error", data.message, "404", setMessageContext)
   }
 }
 
+export async function logoutFetch(method, setMessageContext, navigate, link, setUserContext) {
+   
+  try {
+    const response = await fetch(`${URL}/${method}/logout`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
+    const data = await response.json();
+
+    if (!response.ok) {
+ const errorMsg =  data.errors?.map((item) => `• ${item.msg}`).join("\n")
+activateMessage("Error", data.message, "404", setMessageContext)
+      return;
+    }
+    if(response.ok){
+      activateMessage("Logout succsessfull!", `Goodbye`, "200", setMessageContext)
+      navigate(link)
+      return
+    }
+    
+  } catch (error) {
+    console.error("Create error:", error);
+  }
+}
+
+
+
+
 
 
 
