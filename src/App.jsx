@@ -21,7 +21,7 @@ function App() {
       children: [
         {
           element: <Dashboard />,
-          path: "dashboard",
+          path: "",
         },
         {
           element: <Parts />,

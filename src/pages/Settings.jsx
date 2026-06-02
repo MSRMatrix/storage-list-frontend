@@ -8,8 +8,8 @@ const Settings = () => {
   const { userContext, setUserContext } = useContext(UserContext);
 
   const currency = [
-    { name: "Euro", symbol: "fa-euro-sign" },
-    { name: "Dollar", symbol: "fa-dollar-sign" }
+    { name: "Euro", symbol: "faEuroSign" },
+    { name: "Dollar", symbol: "faDollarSign" }
   ];
 
   function changeCurrency(name) {

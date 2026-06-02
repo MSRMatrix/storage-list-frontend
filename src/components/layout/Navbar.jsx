@@ -25,7 +25,7 @@ const navbarItems = [
 async function logout(){
   const wantToLogout = confirm("You want to logout?")
   if(wantToLogout){
-    logoutFetch("user", setMessageContext, navigate, "/dashboard", setUserContext)
+    logoutFetch("user", setMessageContext, navigate, "/", setUserContext)
     navigate("/")
   }else{
     alert("Logout stopped!")

@@ -24,7 +24,7 @@ const Login = () => {
     formData.forEach((value, key) => {
         formDataObject[key] = value;
     })
-    loginFetch(formDataObject, "user", setMessageContext, navigate, "/Dashboard", setUserContext);
+    loginFetch(formDataObject, "user", setMessageContext, navigate, "/", setUserContext);
     }
 
 const loginForm = [

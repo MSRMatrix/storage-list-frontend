@@ -20,7 +20,7 @@ export async function fetchParts() {
   }
 }
 
-export async function createRequest(newItem, method, setMessageContext, navigate, link) {
+export async function createRequest(newItem, method, setMessageContext, navigate, link, partsContext, setPartsContext) {
   try {
     const response = await fetch(`${URL}/${method}/create`, {
       method: "POST",
@@ -28,7 +28,7 @@ export async function createRequest(newItem, method, setMessageContext, navigate
         "Content-Type": "application/json",
       },
       credentials: "include",
-      body: JSON.stringify(newItem),
+      body: JSON.stringify(newItem, partsContext),
     });
 
     const data = await response.json();
@@ -38,6 +38,7 @@ activateMessage("Error", errorMsg, "404", setMessageContext)
       return;
     }
     if(link === "/login"){
+      // setPartsContext
       navigate(link)
     }
     

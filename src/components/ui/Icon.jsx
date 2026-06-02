@@ -1,9 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faPencil } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faPencil, faDollarSign, faEuroSign } from "@fortawesome/free-solid-svg-icons";
 
 const iconMap = {
   faTrash: faTrash,
   faPencil: faPencil,
+  faDollarSign: faDollarSign,
+  faEuroSign: faEuroSign
 };
 
 const Icon = ({ iconName }) => {

@@ -3,10 +3,16 @@ import CustomForm from "../components/ui/CustomForm";
 import { createRequest } from "../utils/fetchFunction";
 import { MessageContext } from "../context/MessageContext";
 import { useNavigate } from "react-router"
+import { PartsContext } from "../context/PartsContext";
 
 const Register = () => {
 
   const { messageContext, setMessageContext } = useContext(MessageContext);
+   const { partsContext, setPartsContext } = useContext(PartsContext);
+
+   console.log(partsContext);
+   
+
   const navigate = useNavigate()
 
     function registerFunction(e){
@@ -18,7 +24,7 @@ const Register = () => {
     })
     console.log(formDataObject);
 
-    createRequest(formDataObject, "user", setMessageContext, navigate, "/login");
+    createRequest(formDataObject, "user", setMessageContext, navigate, "/login", partsContext, setPartsContext);
     }
 
 const registerForm = [
