@@ -1,45 +1,68 @@
 import { useContext } from "react";
 import CustomForm from "../components/ui/CustomForm";
-import { createRequest } from "../utils/fetchFunction";
+import { createUser } from "../utils/fetchFunction";
 import { MessageContext } from "../context/MessageContext";
-import { useNavigate } from "react-router"
+import { useNavigate } from "react-router";
 import { PartsContext } from "../context/PartsContext";
 
 const Register = () => {
-
   const { messageContext, setMessageContext } = useContext(MessageContext);
-   const { partsContext, setPartsContext } = useContext(PartsContext);
+  const { partsContext, setPartsContext } = useContext(PartsContext);
+  const navigate = useNavigate();
 
-   console.log(partsContext);
-   
-
-  const navigate = useNavigate()
-
-    function registerFunction(e){
-        e.preventDefault()
-        const formData = new FormData(e.target);
+  function registerFunction(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
     const formDataObject = {};
     formData.forEach((value, key) => {
-        formDataObject[key] = value;
-    })
-    console.log(formDataObject);
+      formDataObject[key] = value;
+    });
 
-    createRequest(formDataObject, "user", setMessageContext, navigate, "/login", partsContext, setPartsContext);
-    }
+    createUser(
+      formDataObject,
+      "user",
+      setMessageContext,
+      navigate,
+      "/login",
+      partsContext,
+      setPartsContext,
+    );
+  }
 
-const registerForm = [
-  { element: "input", label: "Username", name: "username", type: "text" },
-  { element: "input", label: "Email", name: "email", type: "email", required: true },
-  { element: "input", label: "Company", name: "company", type: "checkbox" },
-  { element: "select", label: "Currency", name: "currency", type: "text" },
-  { element: "input", label: "Repeat Email", name: "repeatEmail", type: "email", required: true  },
-  { element: "input", label: "Password", name: "password", type: "password", required: true  },
-
-];
+  const registerForm = [
+    { element: "input", label: "Username", name: "username", type: "text" },
+    {
+      element: "input",
+      label: "Email",
+      name: "email",
+      type: "email",
+      required: true,
+    },
+    { element: "input", label: "Company", name: "company", type: "checkbox" },
+    { element: "select", label: "Currency", name: "currency", type: "text" },
+    {
+      element: "input",
+      label: "Repeat Email",
+      name: "repeatEmail",
+      type: "email",
+      required: true,
+    },
+    {
+      element: "input",
+      label: "Password",
+      name: "password",
+      type: "password",
+      required: true,
+    },
+  ];
 
   return (
     <>
-    <CustomForm className={"register"} formItem={registerForm} onSubmit={registerFunction}/>
+      <CustomForm
+        className={"register"}
+        formItem={registerForm}
+        onSubmit={registerFunction}
+      />
     </>
   );
 };

@@ -20,18 +20,57 @@ export async function fetchParts() {
   }
 }
 
-export async function createRequest(newItem, method, setMessageContext, navigate, link, partsContext, setPartsContext) {
+export async function createUser(newItem, method, setMessageContext, navigate, link, partsContext, setPartsContext) {
   try {
+    
     const response = await fetch(`${URL}/${method}/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       credentials: "include",
-      body: JSON.stringify(newItem, partsContext),
+      body: JSON.stringify({
+  user: newItem,
+  parts: partsContext
+})
     });
 
-    const data = await response.json();
+     const data = await response.json();
+     console.log(data);
+     
+//     if (!response.ok) {
+//  const errorMsg =  data.errors?.map((item) => `• ${item.msg}`).join("\n")
+// activateMessage("Error", errorMsg, "404", setMessageContext)
+//       return;
+//     }
+//     if(link === "/login"){
+//       // setPartsContext
+//       navigate(link)
+//     }
+    
+//     return data;
+  } catch (error) {
+    console.error("Create error:", error);
+  }
+}
+
+
+
+export async function createPartFetch(newItem, method, setMessageContext, navigate, link, partsContext, setPartsContext) {
+  try {
+    // Muss noch bearbeitet werden
+    const response = await fetch(`${URL}/${method}/create`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({ parts: partsContext})
+    });
+
+     const data = await response.json();
+     console.log(data);
+     
     if (!response.ok) {
  const errorMsg =  data.errors?.map((item) => `• ${item.msg}`).join("\n")
 activateMessage("Error", errorMsg, "404", setMessageContext)
