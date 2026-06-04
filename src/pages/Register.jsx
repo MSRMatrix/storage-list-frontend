@@ -38,8 +38,6 @@ const Register = () => {
       type: "email",
       required: true,
     },
-    { element: "input", label: "Company", name: "company", type: "checkbox" },
-    { element: "select", label: "Currency", name: "currency", type: "text" },
     {
       element: "input",
       label: "Repeat Email",
@@ -54,6 +52,15 @@ const Register = () => {
       type: "password",
       required: true,
     },
+    {
+      element: "input",
+      label: "RepeatPassword",
+      name: "Repeatpassword",
+      type: "password",
+      required: true,
+    },
+    { element: "input", label: "Company", name: "company", type: "checkbox" },
+    { element: "select", label: "Currency", name: "currency", type: "text" },
   ];
 
   return (

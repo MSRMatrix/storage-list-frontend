@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import CustomForm from "../components/ui/CustomForm";
 import CustomButton from "../components/ui/CustomButton";
-import { createRequest, loginFetch } from "../utils/fetchFunction";
+import { loginFetch } from "../utils/fetchFunction";
 import { MessageContext } from "../context/MessageContext";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
