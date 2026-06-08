@@ -7,7 +7,7 @@ import { PartsContext } from "../context/PartsContext";
 
 const Register = () => {
   const { messageContext, setMessageContext } = useContext(MessageContext);
-  const { partsContext, setPartsContext } = useContext(PartsContext);
+  const { partsContext } = useContext(PartsContext);
   const navigate = useNavigate();
 
   function registerFunction(e) {
@@ -24,9 +24,7 @@ const Register = () => {
       setMessageContext,
       navigate,
       "/login",
-      partsContext,
-      setPartsContext,
-    );
+      partsContext);
   }
 
   const registerForm = [

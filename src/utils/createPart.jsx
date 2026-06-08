@@ -6,7 +6,8 @@ export function createPart(
   partsContext,
   setPartsContext,
   setMessageContext,
-  userId
+  userId,
+  userContext,
 ) {
   e.preventDefault();
 
@@ -23,47 +24,47 @@ export function createPart(
     deleted: false,
   };
 
-  const exists = partsContext.some(
-    (item) => item.partNumber === newItem.partNumber
-  );
-
-  let updated;
-
-  if (exists) {
-    const question = confirm(
-      "Part-number exists already! Add quantity to existing part?"
+  if (userContext && userContext.createdAt) {
+    createPartFetch(newItem, "part");
+  } else {
+    const exists = partsContext.some(
+      (item) => item.partNumber === newItem.partNumber,
     );
 
-    if (!question) {
-      alert("Creating Part stopped!");
-      return;
+    let updated;
+
+    if (exists) {
+      const question = confirm(
+        "Part-number exists already! Add quantity to existing part?",
+      );
+
+      if (!question) {
+        alert("Creating Part stopped!");
+        return;
+      }
+
+      updated = partsContext.map((item) => {
+        if (item.partNumber === newItem.partNumber) {
+          return {
+            ...item,
+            quantity: item.quantity + newItem.quantity,
+          };
+        }
+        return item;
+      });
+    } else {
+      updated = [...partsContext, newItem];
     }
 
-    updated = partsContext.map((item) => {
-      if (item.partNumber === newItem.partNumber) {
-        return {
-          ...item,
-          quantity: item.quantity + newItem.quantity,
-        };
-      }
-      return item;
-    });
+    function updateParts(newArray) {
+      setPartsContext(newArray);
+      localStorage.setItem("parts", JSON.stringify(newArray));
+    }
 
-  } else {
-    updated = [...partsContext, newItem];
+    if (userId) {
+      updateParts(updated);
+    }
   }
-
-  createPartFetch(newItem, "part");
-
-  function updateParts(newArray) {
-    setPartsContext(newArray);
-    localStorage.setItem("parts", JSON.stringify(newArray));
-  }
-
-  if(userId){
-    updateParts(updated);
-  }
-
   const text = "Teil hinzugefügt";
   const status = "200";
   activateMessage(topic, text, status, setMessageContext);

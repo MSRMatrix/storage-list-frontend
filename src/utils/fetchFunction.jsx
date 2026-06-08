@@ -20,7 +20,7 @@ export async function fetchParts() {
   }
 }
 
-export async function createUser(newItem, method, setMessageContext, navigate, link, partsContext, setPartsContext) {
+export async function createUser(newItem, method, setMessageContext, navigate, link, partsContext) {
   try {
     
     const response = await fetch(`${URL}/${method}/create`, {
@@ -36,19 +36,19 @@ export async function createUser(newItem, method, setMessageContext, navigate, l
     });
 
      const data = await response.json();
-     console.log(data);
+
+    //  Option einbauen um zu fragen ob der locale storage geleert werden soll und den PartsContext zu leeren
      
-//     if (!response.ok) {
-//  const errorMsg =  data.errors?.map((item) => `• ${item.msg}`).join("\n")
-// activateMessage("Error", errorMsg, "404", setMessageContext)
-//       return;
-//     }
-//     if(link === "/login"){
-//       // setPartsContext
-//       navigate(link)
-//     }
+    if (!response.ok) {
+ const errorMsg =  data.errors?.map((item) => `• ${item.msg}`).join("\n")
+activateMessage("Error", errorMsg, "404", setMessageContext)
+      return;
+    }
+    if(link === "/login"){
+      navigate(link)
+    }
     
-//     return data;
+    return data;
   } catch (error) {
     console.error("Create error:", error);
   }
