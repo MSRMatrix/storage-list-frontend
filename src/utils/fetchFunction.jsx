@@ -20,9 +20,16 @@ export async function fetchParts() {
   }
 }
 
-export async function createUser(newItem, method, setMessageContext, navigate, link, partsContext) {
+export async function createUser(
+  newItem,
+  method,
+  setMessageContext,
+  navigate,
+  link,
+  partsContext,
+  setPartsContext,
+) {
   try {
-    
     const response = await fetch(`${URL}/${method}/create`, {
       method: "POST",
       headers: {
@@ -30,67 +37,68 @@ export async function createUser(newItem, method, setMessageContext, navigate, l
       },
       credentials: "include",
       body: JSON.stringify({
-  user: newItem,
-  parts: partsContext
-})
+        user: newItem,
+        parts: partsContext,
+      }),
     });
+    const data = await response.json();
 
-     const data = await response.json();
-
-    //  Option einbauen um zu fragen ob der locale storage geleert werden soll und den PartsContext zu leeren
-     
     if (!response.ok) {
- const errorMsg =  data.errors?.map((item) => `• ${item.msg}`).join("\n")
-activateMessage("Error", errorMsg, "404", setMessageContext)
+      const errorMsg = data.errors?.map((item) => `• ${item.msg}`).join("\n");
+      activateMessage("Error", errorMsg, "404", setMessageContext);
       return;
     }
-    if(link === "/login"){
-      navigate(link)
-    }
-    
-    return data;
+    setPartsContext([]);
+    return navigate(link);
   } catch (error) {
     console.error("Create error:", error);
   }
 }
 
-
-
-export async function createPartFetch(newItem, method, setMessageContext, navigate, link, partsContext, setPartsContext) {
+export async function createPartFetch(
+  newItem,
+  method,
+  setMessageContext,
+  navigate,
+  link,
+  partsContext,
+  setPartsContext,
+) {
   try {
-    // Muss noch bearbeitet werden
     const response = await fetch(`${URL}/${method}/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       credentials: "include",
-      body: JSON.stringify({ parts: partsContext})
+      body: JSON.stringify({ parts: partsContext }),
     });
 
-     const data = await response.json();
-     console.log(data);
-     
+    const data = await response.json();
+
+
     if (!response.ok) {
- const errorMsg =  data.errors?.map((item) => `• ${item.msg}`).join("\n")
-activateMessage("Error", errorMsg, "404", setMessageContext)
+      const errorMsg = data.errors?.map((item) => `• ${item.msg}`).join("\n");
+      activateMessage("Error", errorMsg, "404", setMessageContext);
       return;
     }
-    if(link === "/login"){
-      // setPartsContext
-      navigate(link)
-    }
-    
-    return data;
+
+    setPartsContext(data.newPart)
+
+    return 
   } catch (error) {
     console.error("Create error:", error);
   }
 }
 
-
-
-export async function loginFetch(newItem, method, setMessageContext, navigate, link, setUserContext) {
-   
+export async function loginFetch(
+  newItem,
+  method,
+  setMessageContext,
+  navigate,
+  link,
+  setUserContext,
+) {
   try {
     const response = await fetch(`${URL}/${method}/login`, {
       method: "POST",
@@ -103,24 +111,33 @@ export async function loginFetch(newItem, method, setMessageContext, navigate, l
     const data = await response.json();
 
     if (!response.ok) {
- const errorMsg =  data.errors?.map((item) => `• ${item.msg}`).join("\n")
-activateMessage("Error", data.message, "404", setMessageContext)
+      const errorMsg = data.errors?.map((item) => `• ${item.msg}`).join("\n");
+      activateMessage("Error", data.message, "404", setMessageContext);
       return;
     }
-    if(response.ok){
-      activateMessage("Login succsessfull!", `Welcome back, ${data.username ? data.username : "User"}`, "200", setMessageContext)
-      setUserContext(data.userData)
-      navigate(link)
-      return
+    if (response.ok) {
+      activateMessage(
+        "Login succsessfull!",
+        `Welcome back, ${data.username ? data.username : "User"}`,
+        "200",
+        setMessageContext,
+      );
+      setUserContext(data.userData);
+      navigate(link);
+      return;
     }
-    
   } catch (error) {
     console.error("Create error:", error);
   }
 }
 
-export async function logoutFetch(method, setMessageContext, navigate, link, setUserContext) {
-   
+export async function logoutFetch(
+  method,
+  setMessageContext,
+  navigate,
+  link,
+  setUserContext,
+) {
   try {
     const response = await fetch(`${URL}/${method}/logout`, {
       method: "POST",
@@ -132,28 +149,24 @@ export async function logoutFetch(method, setMessageContext, navigate, link, set
     const data = await response.json();
 
     if (!response.ok) {
- const errorMsg =  data.errors?.map((item) => `• ${item.msg}`).join("\n")
-activateMessage("Error", data.message, "404", setMessageContext)
+      const errorMsg = data.errors?.map((item) => `• ${item.msg}`).join("\n");
+      activateMessage("Error", data.message, "404", setMessageContext);
       return;
     }
-    if(response.ok){
-      activateMessage("Logout succsessfull!", `Goodbye`, "200", setMessageContext)
-      navigate(link)
-      return
+    if (response.ok) {
+      activateMessage(
+        "Logout succsessfull!",
+        `Goodbye`,
+        "200",
+        setMessageContext,
+      );
+      navigate(link);
+      return;
     }
-    
   } catch (error) {
     console.error("Create error:", error);
   }
 }
-
-
-
-
-
-
-
-
 
 export async function updatePart(partId, updateData) {
   try {

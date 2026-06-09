@@ -6,7 +6,6 @@ export function createPart(
   partsContext,
   setPartsContext,
   setMessageContext,
-  userId,
   userContext,
 ) {
   e.preventDefault();
@@ -23,10 +22,12 @@ export function createPart(
     description: formData.get("description") || "No description",
     deleted: false,
   };
+console.log(userContext);
 
   if (userContext && userContext.createdAt) {
-    createPartFetch(newItem, "part");
-  } else {
+    createPartFetch(newItem, "part", setPartsContext);
+  } 
+  else {
     const exists = partsContext.some(
       (item) => item.partNumber === newItem.partNumber,
     );
@@ -61,9 +62,6 @@ export function createPart(
       localStorage.setItem("parts", JSON.stringify(newArray));
     }
 
-    if (userId) {
-      updateParts(updated);
-    }
   }
   const text = "Teil hinzugefügt";
   const status = "200";
