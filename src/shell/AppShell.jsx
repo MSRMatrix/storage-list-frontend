@@ -18,9 +18,25 @@ const AppShell = () => {
    const {loadingContext, setLoadingContext} = useContext(LoadingContext)
   
   useEffect(() => {
-    partsServices(partsContext, setPartsContext, userContext, setUserContext)
+    
   }, []);
 //   dependency fehlt
+
+
+useEffect(() => {
+  async function loadParts() {
+    if (userContext.createdAt) {
+partsServices(partsContext, setPartsContext, userContext, setUserContext)
+    } else {
+      const localParts =
+        JSON.parse(localStorage.getItem("parts")) || [];
+      setPartsContext(localParts);
+      
+    }
+  }
+
+  loadParts();
+}, [userContext.createdAt]);
 
   return (
     <>

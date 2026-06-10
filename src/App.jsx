@@ -42,10 +42,7 @@ function App() {
       ],
     },
   ]);
-  const [partsContext, setPartsContext] = useState(
-    JSON.parse(localStorage.getItem("parts")) || [],
-  );
-// Es fehlt ein fetch und ein ternary der testet ob der User eingeloggt ist und wenn nicht dann die Daten aus dem Locale Storage bekommt und wenn das nicht existiert dann sollte das Array leer sein
+  const [partsContext, setPartsContext] = useState([]);
 
   const [userContext, setUserContext] = useState({
     id: "",
