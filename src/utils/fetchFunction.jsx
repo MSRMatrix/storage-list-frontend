@@ -49,6 +49,7 @@ export async function createUser(
       return;
     }
     setPartsContext([]);
+    localStorage.setItem("parts", []);
     return navigate(link);
   } catch (error) {
     console.error("Create error:", error);
@@ -76,16 +77,15 @@ export async function createPartFetch(
 
     const data = await response.json();
 
-
     if (!response.ok) {
       const errorMsg = data.errors?.map((item) => `• ${item.msg}`).join("\n");
       activateMessage("Error", errorMsg, "404", setMessageContext);
       return;
     }
 
-    setPartsContext(data.newPart)
+    setPartsContext(data.newPart);
 
-    return 
+    return;
   } catch (error) {
     console.error("Create error:", error);
   }

@@ -1,7 +1,7 @@
 import { createPartFetch } from "./fetchFunction";
 import { activateMessage } from "./messageFunctions";
 
-export function createPart(
+export async function createPart(
   e,
   partsContext,
   setPartsContext,
@@ -11,6 +11,7 @@ export function createPart(
   e.preventDefault();
 
   const topic = "Teile Status";
+
   const formData = new FormData(e.target);
 
   const newItem = {
@@ -22,48 +23,72 @@ export function createPart(
     description: formData.get("description") || "No description",
     deleted: false,
   };
-console.log(userContext);
 
-  if (userContext && userContext.createdAt) {
-    createPartFetch(newItem, "part", setPartsContext);
-  } 
-  else {
-    const exists = partsContext.some(
-      (item) => item.partNumber === newItem.partNumber,
-    );
-
-    let updated;
-
-    if (exists) {
-      const question = confirm(
-        "Part-number exists already! Add quantity to existing part?",
+  try {
+    if (userContext?.email) {
+      const result = await createPartFetch(
+        newItem,
+        "part",
+        setPartsContext,
       );
 
-      if (!question) {
-        alert("Creating Part stopped!");
+      if (!result) {
         return;
       }
+    }
 
-      updated = partsContext.map((item) => {
-        if (item.partNumber === newItem.partNumber) {
-          return {
-            ...item,
-            quantity: item.quantity + newItem.quantity,
-          };
+    else {
+      const exists = partsContext.some(
+        (item) => item.partNumber === newItem.partNumber,
+      );
+
+      let updated;
+
+      if (exists) {
+        const question = confirm(
+          "Part-number exists already! Add quantity to existing part?",
+        );
+
+        if (!question) {
+          alert("Creating Part stopped!");
+          return;
         }
-        return item;
-      });
-    } else {
-      updated = [...partsContext, newItem];
+
+        updated = partsContext.map((item) => {
+          if (item.partNumber === newItem.partNumber) {
+            return {
+              ...item,
+              quantity: item.quantity + newItem.quantity,
+            };
+          }
+
+          return item;
+        });
+      } else {
+        updated = [...partsContext, newItem];
+      }
+
+      setPartsContext(updated);
+      localStorage.setItem("parts", JSON.stringify(updated));
     }
 
-    function updateParts(newArray) {
-      setPartsContext(newArray);
-      localStorage.setItem("parts", JSON.stringify(newArray));
-    }
+    activateMessage(
+      topic,
+      "Teil hinzugefügt",
+      "200",
+      setMessageContext,
+    );
 
+    e.target.reset();
+
+  } catch (error) {
+    console.error(error);
+
+    activateMessage(
+      topic,
+      "Fehler beim Hinzufügen",
+      "500",
+      setMessageContext,
+    );
   }
-  const text = "Teil hinzugefügt";
-  const status = "200";
-  activateMessage(topic, text, status, setMessageContext);
 }
