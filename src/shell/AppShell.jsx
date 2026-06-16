@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { useContext, useEffect } from "react";
 
 import Navbar from "../components/layout/Navbar";
@@ -9,6 +9,7 @@ import { UserContext } from "../context/UserContext";
 import Message from "../components/feedback/Message";
 import Loading from "../components/ui/Loading";
 import { LoadingContext } from "../context/LoadingContext";
+import { getData } from "../utils/fetchFunction";
 
 
 
@@ -16,6 +17,7 @@ const AppShell = () => {
       const { partsContext, setPartsContext } = useContext(PartsContext);
   const {userContext, setUserContext} = useContext(UserContext)
    const {loadingContext, setLoadingContext} = useContext(LoadingContext)
+   const navigate = useNavigate()
   
   useEffect(() => {
     
@@ -37,6 +39,13 @@ partsServices(partsContext, setPartsContext, userContext, setUserContext)
 
   loadParts();
 }, [userContext.createdAt]);
+
+
+
+useEffect(() => {
+getData(navigate, setUserContext, setPartsContext)
+},[])
+
 
   return (
     <>
