@@ -193,20 +193,22 @@ export async function getData(navigate, setUserContext, setPartsContext) {
   const URL = import.meta.env.VITE_BACKENDURL;
   try {
     const response = await fetch(`${URL}/user`, {
-      method: "GET",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       credentials: "include",
     });
     const data = await response.json();
+    console.log(data);
+    
     if (!response.ok) {
       navigate("/");
       return console.log(response.statusText);
     } else {
       setUserContext(data.user);
       setPartsContext(data.parts);
-      navigate("/dashboard");
+      navigate("/");
       return console.log("Daten erfolgreich geladen!");
     }
   } catch (error) {
