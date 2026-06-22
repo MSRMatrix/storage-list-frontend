@@ -189,8 +189,12 @@ export async function updatePart(partId, updateData) {
   }
 }
 
-export async function getData(navigate, setUserContext, setPartsContext) {
+export async function getData(
+  setUserContext,
+  setPartsContext
+) {
   const URL = import.meta.env.VITE_BACKENDURL;
+
   try {
     const response = await fetch(`${URL}/user`, {
       method: "POST",
@@ -199,19 +203,22 @@ export async function getData(navigate, setUserContext, setPartsContext) {
       },
       credentials: "include",
     });
+
     const data = await response.json();
-    console.log(data);
-    
+
     if (!response.ok) {
-      navigate("/");
-      return console.log(response.statusText);
-    } else {
-      setUserContext(data.user);
-      setPartsContext(data.parts);
-      navigate("/");
-      return console.log("Daten erfolgreich geladen!");
+      console.log(data.message);
+      return false;
     }
+
+    setUserContext(data.user);
+    setPartsContext(data.parts);
+
+    console.log("Daten erfolgreich geladen!");
+    return true;
+
   } catch (error) {
     console.log(error);
+    return false;
   }
 }

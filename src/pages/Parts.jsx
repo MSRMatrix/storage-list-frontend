@@ -10,10 +10,11 @@ import { activateMessage } from "../utils/messageFunctions";
 import { LoadingContext } from "../context/LoadingContext";
 
 function Parts() {
+  const { messageContext, setMessageContext } = useContext(MessageContext);
+  const { loadingContext, setLoadingContext } = useContext(LoadingContext);
+
   const { partsContext } = useContext(PartsContext);
   const { userContext } = useContext(UserContext);
-  const { messageContext, setMessageContext } = useContext(MessageContext);
-  const {loadingContext, setLoadingContext} = useContext(LoadingContext)
 
   const [activeTab, setActiveTab] = useState("list");
   const [filters, setFilters] = useState({});
@@ -21,21 +22,22 @@ function Parts() {
   const [direction, setDirection] = useState("asc");
   const [lowOnly, setLowOnly] = useState(false);
   const [deleted, setDeleted] = useState(false);
-  const [visibleParts, setVisibleParts] = useState(getVisibleParts(
+
+const visibleParts = getVisibleParts(
   partsContext,
   filters,
   sortKey,
   direction,
   setMessageContext,
 )
-  .filter((p) => {
-    if (deleted) return p.deleted;
-    return !p.deleted;
-  })
-  .filter((p) => {
-    if (deleted) return true; 
-    return !lowOnly || (p.lowLimit && p.quantity < p.lowLimit);
-  }))
+.filter((p) => {
+  if (deleted) return p.deleted;
+  return !p.deleted;
+})
+.filter((p) => {
+  if (deleted) return true;
+  return !lowOnly || (p.lowLimit && p.quantity < p.lowLimit);
+});
 
   function handleLowParts() {
     setDeleted(false);
@@ -53,18 +55,18 @@ function Parts() {
     setDeleted(false);
   }
 
-useEffect(() => {
-  setLoadingContext(true);
+  useEffect(() => {
+    setLoadingContext(true);
 
-  activateMessage(
-    "Parts found",
-    visibleParts.length,
-    visibleParts.length > 0 ? "200" : "404",
-    setMessageContext
-  );
+    activateMessage(
+      "Parts found",
+      visibleParts.length,
+      visibleParts.length > 0 ? "200" : "404",
+      setMessageContext,
+    );
 
-  setLoadingContext(false);
-}, [visibleParts]);
+    setLoadingContext(false);
+  }, [visibleParts.length]);
 
   return (
     <div>
