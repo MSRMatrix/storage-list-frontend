@@ -58,24 +58,22 @@ export async function createUser(
 
 export async function createPartFetch(
   newItem,
-  method,
-  setMessageContext,
-  navigate,
-  link,
   partsContext,
   setPartsContext,
+  setMessageContext,
 ) {
   try {
-    const response = await fetch(`${URL}/${method}/create`, {
+    const response = await fetch(`${URL}/part/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       credentials: "include",
-      body: JSON.stringify({ parts: partsContext }),
+      body: JSON.stringify(newItem),
     });
 
     const data = await response.json();
+console.log(data);
 
     if (!response.ok) {
       const errorMsg = data.errors?.map((item) => `• ${item.msg}`).join("\n");
@@ -83,9 +81,10 @@ export async function createPartFetch(
       return;
     }
 
-    setPartsContext(data.newPart);
-
-    return;
+    if (response.ok) {
+      setPartsContext(data.newPart);
+      return;
+    }
   } catch (error) {
     console.error("Create error:", error);
   }
@@ -189,10 +188,7 @@ export async function updatePart(partId, updateData) {
   }
 }
 
-export async function getData(
-  setUserContext,
-  setPartsContext
-) {
+export async function getData(setUserContext, setPartsContext) {
   const URL = import.meta.env.VITE_BACKENDURL;
 
   try {
@@ -216,7 +212,6 @@ export async function getData(
 
     console.log("Daten erfolgreich geladen!");
     return true;
-
   } catch (error) {
     console.log(error);
     return false;

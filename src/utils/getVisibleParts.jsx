@@ -1,6 +1,8 @@
 export function getVisibleParts(partsContext, filters, sortKey, direction) {
-  let result = partsContext;
-  
+    let result = partsContext;
+// console.log(result);
+
+
   result = result.filter((item) => {
     if (filters.partNumber && item.partNumber !== filters.partNumber) return false;
     if (filters.name && item.name !== filters.name) return false;
@@ -8,6 +10,7 @@ export function getVisibleParts(partsContext, filters, sortKey, direction) {
     if (filters.price && item.price !== Number(filters.price)) return false;
 
     // Filter muss angepasst werden. Von - bis zu dem Wert den man eingegeben hat
+
 
     return true;
   });

@@ -28,8 +28,9 @@ export async function createPart(
     if (userContext?.email) {
       const result = await createPartFetch(
         newItem,
-        "part",
+        partsContext,
         setPartsContext,
+        setMessageContext
       );
 
       if (!result) {
