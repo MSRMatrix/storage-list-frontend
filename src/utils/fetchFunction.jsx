@@ -190,7 +190,6 @@ export async function updatePart(partId, updateData) {
 
 export async function getData(setUserContext, setPartsContext) {
   const URL = import.meta.env.VITE_BACKENDURL;
-
   try {
     const response = await fetch(`${URL}/user`, {
       method: "POST",
@@ -208,6 +207,36 @@ export async function getData(setUserContext, setPartsContext) {
     }
 
     setUserContext(data.user);
+    setPartsContext(data.parts);
+
+    console.log("Daten erfolgreich geladen!");
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}
+
+export async function softDeleteFetch(id, setPartsContext) {
+  const URL = import.meta.env.VITE_BACKENDURL;
+
+  try {
+    const response = await fetch(`${URL}/part/soft-delete`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({_id: id}),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.log(data.message);
+      return false;
+    }
+
     setPartsContext(data.parts);
 
     console.log("Daten erfolgreich geladen!");
