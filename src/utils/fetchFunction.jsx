@@ -231,11 +231,12 @@ export async function softDeleteFetch(id, setPartsContext) {
     });
 
     const data = await response.json();
-
+    
     if (!response.ok) {
       console.log(data.message);
       return false;
     }
+
 
     setPartsContext(data.parts);
 
