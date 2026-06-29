@@ -11,6 +11,8 @@ const PartList = ({
   visibleParts,
 }) => {
   const { userContext, setUserContext } = useContext(UserContext);
+  const [editingPart, setEditingPart] = useState(null);
+  // Wo ich Edit einfügen kann
 
   function handleSort(key) {
     if (sortKey === key) {
