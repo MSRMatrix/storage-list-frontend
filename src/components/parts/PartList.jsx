@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { UserContext } from "../../context/UserContext";
 import PartItem from "./PartItem";
+import Edit from "./Edit";
 
 const PartList = ({
   filters,
@@ -61,11 +62,14 @@ const PartList = ({
         </thead>
         <tbody>
           {visibleParts.map((part) => (
-            <PartItem
-              key={part.id}
-              part={part}
-              currency={userContext.currency}
-            />
+            <div>
+              <Edit key={part.id} part={part} currency={userContext.currency} />
+              <PartItem
+                key={part.id}
+                part={part}
+                currency={userContext.currency}
+              />
+            </div>
           ))}
         </tbody>
       </table>
