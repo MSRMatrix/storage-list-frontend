@@ -247,3 +247,35 @@ export async function softDeleteFetch(id, setPartsContext) {
     return false;
   }
 }
+
+export async function editPart(part, setPartsContext) {
+  const URL = import.meta.env.VITE_BACKENDURL;
+
+  try {
+    const response = await fetch(`${URL}/part/edit`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({part}),
+    });
+
+    const data = await response.json();
+    
+    if (!response.ok) {
+      console.log(data.message);
+      return false;
+    }
+
+
+    setPartsContext(data.parts);
+
+    console.log("Daten erfolgreich geladen!");
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}
+

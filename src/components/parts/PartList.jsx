@@ -1,7 +1,6 @@
 import { useContext, useState } from "react";
 import { UserContext } from "../../context/UserContext";
 import PartItem from "./PartItem";
-import Edit from "./Edit";
 
 const PartList = ({
   filters,
@@ -12,8 +11,6 @@ const PartList = ({
   visibleParts,
 }) => {
   const { userContext, setUserContext } = useContext(UserContext);
-  const [editingPart, setEditingPart] = useState(null);
-  // Wo ich Edit einfügen kann
 
   function handleSort(key) {
     if (sortKey === key) {
@@ -62,14 +59,11 @@ const PartList = ({
         </thead>
         <tbody>
           {visibleParts.map((part) => (
-            <div>
-              <Edit key={part.id} part={part} currency={userContext.currency} />
               <PartItem
                 key={part.id}
                 part={part}
                 currency={userContext.currency}
               />
-            </div>
           ))}
         </tbody>
       </table>

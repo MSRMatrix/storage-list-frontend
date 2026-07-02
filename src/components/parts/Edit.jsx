@@ -17,8 +17,6 @@ const PartForm = () => {
 
   return (
     <>
-      <h2>Teile hinzufügen</h2>
-
       <form
         // onSubmit={(e) =>
         //    Andere Function
